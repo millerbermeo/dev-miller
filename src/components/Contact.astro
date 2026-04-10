@@ -1,11 +1,11 @@
 ---
 ---
 
-<section id="contact" class="py-24 px-6">
+<section id="contact" class="py-16 sm:py-24 px-4 sm:px-6">
   <div class="max-w-4xl mx-auto">
     <div
       data-anim="contact-card"
-      class="bg-white/[.03] border border-white/[.08] rounded-2xl p-8 sm:p-12 text-center relative overflow-hidden"
+      class="bg-white/[.03] border border-white/[.08] rounded-2xl p-6 sm:p-10 lg:p-12 text-center relative overflow-hidden"
     >
       <!-- Glow -->
       <div
@@ -19,37 +19,41 @@
         Contacto
       </p>
 
-      <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">
+      <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4">
         ¿Tienes un proyecto o propuesta?
       </h2>
-      <p class="text-zinc-500 text-[15px] max-w-xl mx-auto mb-10">
+      <p class="text-zinc-500 text-sm sm:text-[15px] max-w-xl mx-auto mb-8 sm:mb-10">
         Estoy disponible para proyectos freelance, posiciones de trabajo y
         colaboraciones. Respondo en menos de 24 horas.
       </p>
 
       <!-- Primary CTA -->
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10">
+      <div
+        class="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 mb-8 sm:mb-10"
+      >
         <a
           href="mailto:devmiller25@gmail.com"
-          class="inline-flex items-center gap-2 px-7 py-3 text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-500 rounded-lg transition-all duration-200 hover:shadow-lg hover:shadow-indigo-500/20"
+          class="inline-flex items-center justify-center gap-2 px-5 sm:px-7 py-3 text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-500 rounded-lg transition-all duration-200 hover:shadow-lg hover:shadow-indigo-500/20"
         >
-          <ion-icon name="mail-outline" class="text-base"></ion-icon>
-          devmiller25@gmail.com
+          <ion-icon name="mail-outline" class="text-base flex-shrink-0"
+          ></ion-icon>
+          <span class="truncate">devmiller25@gmail.com</span>
         </a>
         <a
           href="cvmillerrivera.pdf"
           target="_blank"
-          class="inline-flex items-center gap-2 px-7 py-3 text-sm font-semibold text-zinc-300 bg-white/[.05] hover:bg-white/[.08] border border-white/[.08] rounded-lg transition-all duration-200"
+          class="inline-flex items-center justify-center gap-2 px-5 sm:px-7 py-3 text-sm font-semibold text-zinc-300 bg-white/[.05] hover:bg-white/[.08] border border-white/[.08] rounded-lg transition-all duration-200"
         >
-          <ion-icon name="document-outline" class="text-base"></ion-icon>
+          <ion-icon name="document-outline" class="text-base flex-shrink-0"
+          ></ion-icon>
           Descargar CV
         </a>
       </div>
 
       <!-- Divider -->
-      <div class="flex items-center gap-4 max-w-xs mx-auto mb-8">
+      <div class="flex items-center gap-4 max-w-xs mx-auto mb-6 sm:mb-8">
         <div class="flex-1 h-px bg-white/[.06]"></div>
-        <span class="text-xs text-zinc-700">o encuéntrame en</span>
+        <span class="text-xs text-zinc-700 whitespace-nowrap">o encuéntrame en</span>
         <div class="flex-1 h-px bg-white/[.06]"></div>
       </div>
 

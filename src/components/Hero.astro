@@ -3,11 +3,11 @@
 
 <section
   id="home"
-  class="min-h-screen flex items-center justify-center px-6 pt-28 pb-20"
+  class="min-h-screen flex items-center justify-center px-4 sm:px-6 pt-24 md:pt-32 pb-16"
 >
   <div class="max-w-4xl w-full mx-auto">
     <!-- Availability badge -->
-    <div data-anim="hero-badge" class="flex items-center gap-2 mb-8">
+    <div data-anim="hero-badge" class="flex items-center gap-2 mb-6 sm:mb-8">
       <span
         class="inline-flex items-center gap-2 px-3 py-1 text-xs font-medium text-emerald-400 bg-emerald-400/10 border border-emerald-400/20 rounded-full"
       >
@@ -20,7 +20,7 @@
     <!-- Headline -->
     <h1
       data-anim="hero-title"
-      class="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.08] mb-6"
+      class="text-[2.5rem] sm:text-5xl lg:text-7xl font-bold tracking-tight leading-[1.08] mb-5 sm:mb-6"
     >
       <span class="text-white">Hola, soy</span>
       <br />
@@ -34,7 +34,7 @@
     <!-- Role -->
     <p
       data-anim="hero-role"
-      class="text-xl sm:text-2xl text-zinc-400 font-medium mb-5"
+      class="text-base sm:text-xl lg:text-2xl text-zinc-400 font-medium mb-4 sm:mb-5"
     >
       Desarrollador Fullstack · Backend · IA &amp; Automatización
     </p>
@@ -42,10 +42,11 @@
     <!-- Value proposition -->
     <p
       data-anim="hero-desc"
-      class="text-base sm:text-lg text-zinc-500 max-w-2xl leading-relaxed mb-10"
+      class="text-sm sm:text-base lg:text-lg text-zinc-500 max-w-2xl leading-relaxed mb-8 sm:mb-10"
     >
-      Construyo sistemas que resuelven problemas reales de negocio: desde plataformas
-      SaaS y POS hasta chatbots inteligentes y automatizaciones con IA.
+      Construyo sistemas que resuelven problemas reales de negocio: desde
+      plataformas SaaS y POS hasta chatbots inteligentes y automatizaciones con
+      IA.
       <span class="text-zinc-300 font-medium"
         >3 años de experiencia, 1.5 en producción profesional.</span
       >
@@ -54,24 +55,24 @@
     <!-- CTAs -->
     <div
       data-anim="hero-cta"
-      class="flex flex-wrap items-center gap-4 mb-12"
+      class="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3 sm:gap-4 mb-10 sm:mb-12"
     >
       <a
         href="#projects"
-        class="px-6 py-3 text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-500 rounded-lg transition-all duration-200 hover:shadow-lg hover:shadow-indigo-500/20"
+        class="px-6 py-3 text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-500 rounded-lg transition-all duration-200 hover:shadow-lg hover:shadow-indigo-500/20 text-center"
       >
         Ver proyectos →
       </a>
       <a
         href="cvmillerrivera.pdf"
         target="_blank"
-        class="px-6 py-3 text-sm font-semibold text-zinc-300 bg-white/[.05] hover:bg-white/[.08] border border-white/[.08] rounded-lg transition-all duration-200"
+        class="px-6 py-3 text-sm font-semibold text-zinc-300 bg-white/[.05] hover:bg-white/[.08] border border-white/[.08] rounded-lg transition-all duration-200 text-center"
       >
         Descargar CV
       </a>
       <a
         href="#contact"
-        class="px-6 py-3 text-sm font-medium text-zinc-500 hover:text-zinc-300 transition-colors duration-200"
+        class="px-6 py-3 text-sm font-medium text-zinc-500 hover:text-zinc-300 transition-colors duration-200 text-center"
       >
         Trabajemos juntos ↓
       </a>
@@ -80,7 +81,7 @@
     <!-- Social links -->
     <div
       data-anim="hero-social"
-      class="flex flex-wrap items-center gap-6"
+      class="flex flex-wrap items-center gap-4 sm:gap-5"
     >
       <a
         href="https://github.com/millerbermeo"
@@ -91,7 +92,6 @@
         <ion-icon name="logo-github" class="text-lg"></ion-icon>
         <span>GitHub</span>
       </a>
-      <span class="w-px h-4 bg-white/10"></span>
       <a
         href="https://www.linkedin.com/in/miller-rivera/"
         target="_blank"
@@ -101,13 +101,13 @@
         <ion-icon name="logo-linkedin" class="text-lg"></ion-icon>
         <span>LinkedIn</span>
       </a>
-      <span class="w-px h-4 bg-white/10"></span>
       <a
         href="mailto:devmiller25@gmail.com"
         class="flex items-center gap-2 text-sm text-zinc-600 hover:text-white transition-colors duration-200"
       >
         <ion-icon name="mail-outline" class="text-lg"></ion-icon>
-        <span>devmiller25@gmail.com</span>
+        <span class="hidden sm:inline">devmiller25@gmail.com</span>
+        <span class="sm:hidden">Email</span>
       </a>
     </div>
   </div>

@@ -8,32 +8,119 @@ const navItems = [
 ];
 ---
 
-<header class="fixed top-0 left-0 right-0 z-50 flex justify-center pt-4 px-4">
-  <nav
-    class="flex items-center gap-1 px-3 py-2 rounded-full bg-white/[.05] border border-white/[.08] backdrop-blur-xl shadow-xl shadow-black/20"
+<header class="fixed top-0 left-0 right-0 z-50">
+  <!-- ── Desktop nav pill (md+) ── -->
+  <div class="hidden md:flex justify-center pt-4 px-4">
+    <nav
+      class="flex items-center gap-1 px-3 py-2 rounded-full bg-white/[.05] border border-white/[.08] backdrop-blur-xl shadow-xl shadow-black/20"
+    >
+      <span
+        class="text-sm font-semibold text-white px-3 mr-1 border-r border-white/[.08] pr-4"
+      >
+        Miller<span class="text-indigo-400">.</span>
+      </span>
+
+      {
+        navItems.map(({ label, href }) => (
+          <a
+            href={href}
+            class="px-3 py-1.5 text-sm text-zinc-400 hover:text-white rounded-full hover:bg-white/[.06] transition-all duration-200"
+          >
+            {label}
+          </a>
+        ))
+      }
+
+      <a
+        href="#contact"
+        class="ml-2 px-4 py-1.5 text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-500 rounded-full transition-all duration-200"
+      >
+        Contactar
+      </a>
+    </nav>
+  </div>
+
+  <!-- ── Mobile header bar ── -->
+  <div
+    class="flex md:hidden items-center justify-between px-5 py-4 bg-[#080808]/95 backdrop-blur-xl border-b border-white/[.06]"
   >
-    <span
-      class="text-sm font-semibold text-white px-3 mr-1 border-r border-white/[.08] pr-4"
-    >
+    <a href="#home" class="text-base font-bold text-white">
       Miller<span class="text-indigo-400">.</span>
-    </span>
-
-    {
-      navItems.map(({ label, href }) => (
-        <a
-          href={href}
-          class="px-3 py-1.5 text-sm text-zinc-400 hover:text-white rounded-full hover:bg-white/[.06] transition-all duration-200"
-        >
-          {label}
-        </a>
-      ))
-    }
-
-    <a
-      href="#contact"
-      class="ml-2 px-4 py-1.5 text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-500 rounded-full transition-all duration-200"
-    >
-      Contactar
     </a>
-  </nav>
+
+    <button
+      id="mobile-menu-btn"
+      class="flex items-center justify-center w-9 h-9 rounded-lg text-zinc-400 hover:text-white hover:bg-white/[.06] transition-all duration-200"
+      aria-label="Abrir menú"
+      aria-expanded="false"
+    >
+      <ion-icon name="menu-outline" class="text-2xl" id="icon-open"></ion-icon>
+      <ion-icon
+        name="close-outline"
+        class="text-2xl hidden"
+        id="icon-close"
+      ></ion-icon>
+    </button>
+  </div>
+
+  <!-- ── Mobile menu dropdown ── -->
+  <div
+    id="mobile-menu"
+    class="hidden md:hidden bg-[#0c0c0c]/98 backdrop-blur-xl border-b border-white/[.06]"
+  >
+    <nav class="flex flex-col gap-1 px-4 py-3">
+      {
+        navItems.map(({ label, href }) => (
+          <a
+            href={href}
+            class="mobile-link px-4 py-3 text-sm font-medium text-zinc-400 hover:text-white rounded-xl hover:bg-white/[.05] transition-all duration-200"
+          >
+            {label}
+          </a>
+        ))
+      }
+      <a
+        href="#contact"
+        class="mobile-link mt-2 px-4 py-3 text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-500 rounded-xl text-center transition-all duration-200"
+      >
+        Contactar
+      </a>
+    </nav>
+  </div>
 </header>
+
+<script>
+  const btn = document.getElementById("mobile-menu-btn");
+  const menu = document.getElementById("mobile-menu");
+  const iconOpen = document.getElementById("icon-open");
+  const iconClose = document.getElementById("icon-close");
+
+  function closeMenu() {
+    menu?.classList.add("hidden");
+    iconOpen?.classList.remove("hidden");
+    iconClose?.classList.add("hidden");
+    btn?.setAttribute("aria-expanded", "false");
+  }
+
+  btn?.addEventListener("click", () => {
+    const isOpen = !menu?.classList.contains("hidden");
+    if (isOpen) {
+      closeMenu();
+    } else {
+      menu?.classList.remove("hidden");
+      iconOpen?.classList.add("hidden");
+      iconClose?.classList.remove("hidden");
+      btn?.setAttribute("aria-expanded", "true");
+    }
+  });
+
+  // Close on link click
+  document.querySelectorAll(".mobile-link").forEach((link) => {
+    link.addEventListener("click", closeMenu);
+  });
+
+  // Close on resize to desktop
+  window.addEventListener("resize", () => {
+    if (window.innerWidth >= 768) closeMenu();
+  });
+</script>
