@@ -1,8 +1,39 @@
-<header class="flex fixed top-0 items-center justify-center py-6 w-full bg-black z-30 mx-auto">
-    <nav class="flex flex-row gap-x-10 opacity-80">
-        <a href="/#home">Home</a>
-        <a href="/#about">About Me</a>
-        <a href="/#projects">Projects</a>
-        <a class="hidden lg:flex" href="mailto:devmiller25@gmail.com">Contact</a>
-    </nav>
+---
+const navItems = [
+  { label: "Inicio", href: "#home" },
+  { label: "Sobre mí", href: "#about" },
+  { label: "Experiencia", href: "#experience" },
+  { label: "Proyectos", href: "#projects" },
+  { label: "Servicios", href: "#services" },
+];
+---
+
+<header class="fixed top-0 left-0 right-0 z-50 flex justify-center pt-4 px-4">
+  <nav
+    class="flex items-center gap-1 px-3 py-2 rounded-full bg-white/[.05] border border-white/[.08] backdrop-blur-xl shadow-xl shadow-black/20"
+  >
+    <span
+      class="text-sm font-semibold text-white px-3 mr-1 border-r border-white/[.08] pr-4"
+    >
+      Miller<span class="text-indigo-400">.</span>
+    </span>
+
+    {
+      navItems.map(({ label, href }) => (
+        <a
+          href={href}
+          class="px-3 py-1.5 text-sm text-zinc-400 hover:text-white rounded-full hover:bg-white/[.06] transition-all duration-200"
+        >
+          {label}
+        </a>
+      ))
+    }
+
+    <a
+      href="#contact"
+      class="ml-2 px-4 py-1.5 text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-500 rounded-full transition-all duration-200"
+    >
+      Contactar
+    </a>
+  </nav>
 </header>

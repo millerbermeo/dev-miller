@@ -1,132 +1,173 @@
-<h3 class="text-4xl text-center 2xl:text-5xl font-extrabold dark:text-white my-8 pt-14" id="projects">
-  Mis Proyectos como Desarrollador
-</h3>
+---
+const projects = [
+  {
+    label: "SaaS · POS",
+    title: "Plataforma POS & SaaS para Gestión Comercial",
+    problem:
+      "Negocios gestionando ventas con hojas de cálculo sin control real de inventario, caja ni reportes.",
+    solution:
+      "Sistema modular en la nube con gestión de inventario, punto de venta, control de caja, reportes en tiempo real y roles de usuario.",
+    result:
+      "Reducción del tiempo de gestión operativa en más del 60% para los negocios que adoptaron la plataforma.",
+    stack: ["Node.js", "NestJS", "React", "PostgreSQL", "Docker"],
+    image: "dashboard.png",
+    github: "https://github.com/millerbermeo/frontend_cas",
+    accent: "indigo",
+  },
+  {
+    label: "IA · Chatbot",
+    title: "Chatbot Inteligente con WhatsApp API + IA",
+    problem:
+      "Empresas perdiendo clientes potenciales por no poder atender consultas fuera de horario laboral.",
+    solution:
+      "Bot conversacional integrado con WhatsApp Business API y modelos de IA (OpenAI) para responder preguntas, calificar leads y escalar a un humano cuando es necesario.",
+    result:
+      "Atención 24/7 automatizada con tasa de resolución autónoma superior al 70% en consultas frecuentes.",
+    stack: ["Node.js", "WhatsApp API", "OpenAI API", "PostgreSQL"],
+    image: "chat.png",
+    github: "https://chat-whatsapp-sigma.vercel.app/",
+    accent: "emerald",
+  },
+  {
+    label: "Fullstack · Vehiculos",
+    title: "Sistema de Gestión y Venta de Vehículos",
+    problem:
+      "Concesionarios administrando su inventario vehicular de manera manual, sin visibilidad en tiempo real ni seguimiento de clientes.",
+    solution:
+      "Plataforma web fullstack con módulos de inventario, seguimiento de prospectos, fichas técnicas y panel administrativo con métricas de ventas.",
+    result:
+      "Digitalización completa del proceso de venta, desde la captura del lead hasta el cierre del negocio.",
+    stack: ["React", "Node.js", "MySQL", "Next.js"],
+    image: "img3.png",
+    github: "https://github.com/millerbermeo/SistemaFrontend",
+    accent: "violet",
+  },
+  {
+    label: "IA · Automatización",
+    title: "Sistema de Domicilios con Automatización IA",
+    problem:
+      "Proceso de asignación de pedidos manual, lento y con alta tasa de errores en la distribución.",
+    solution:
+      "Plataforma de delivery con asignación inteligente de repartidores, seguimiento en tiempo real, notificaciones automáticas y análisis de rutas optimizadas con IA.",
+    result:
+      "Reducción del tiempo de asignación de pedidos de minutos a segundos, con trazabilidad completa.",
+    stack: ["Python", "FastAPI", "React", "PostgreSQL", "Claude API"],
+    image: "movimientos.png",
+    github: "https://github.com/millerbermeo",
+    accent: "orange",
+  },
+];
 
-<div class="relative h-full w-full bg-slate-950">
-  <div class="grid grid-cols-2 md:grid-cols-4 gap-4 h-[70vh] max-h-[80vh]">
+const accentMap: Record<string, string> = {
+  indigo: "border-indigo-500/30 text-indigo-400 bg-indigo-500/10",
+  emerald: "border-emerald-500/30 text-emerald-400 bg-emerald-500/10",
+  violet: "border-violet-500/30 text-violet-400 bg-violet-500/10",
+  orange: "border-orange-500/30 text-orange-400 bg-orange-500/10",
+};
+---
 
-    <!-- Primera columna de imágenes -->
-    <div class="flex flex-col gap-4">
-      <div class="flex items-center h-40 justify-center overflow-hidden">
-        <a href="https://github.com/millerbermeo/SistemaFrontend/tree/main/src" class="h-full" target="_blank">
-          <img
-            class="w-full h-full rounded-lg transform transition-transform  duration-300 ease-in-out hover:scale-110"
-            src="img3.png"
-            alt="Proyecto 1"
-          />
-        </a>
-      </div>
-      <div class="flex items-center h-40 justify-center overflow-hidden">
-        <a href="https://github.com/millerbermeo/frontend_cas" class="h-full" target="_blank">
-          <img
-            class="w-full h-full rounded-lg transform transition-transform duration-300 ease-in-out hover:scale-110"
-            src="movimientos.png"
-            alt="Proyecto 2"
-          />
-        </a>
-      </div>
-      <div class="flex items-center h-40 justify-center overflow-hidden">
-        <a href="https://mattelsa.vercel.app/" class="h-full" target="_blank">
-          <img
-            class="w-full h-full rounded-lg transform transition-transform duration-300 ease-in-out hover:scale-110"
-            src="womenmattelsa.PNG"
-            alt="Proyecto 3"
-          />
-        </a>
-      </div>
+<section id="projects" class="py-24 px-6">
+  <div class="max-w-4xl mx-auto">
+    <p
+      class="text-xs font-semibold uppercase tracking-widest text-indigo-400 mb-3"
+    >
+      Proyectos
+    </p>
+    <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">
+      Trabajo destacado
+    </h2>
+    <p class="text-zinc-500 mb-12 text-[15px]">
+      Proyectos reales construidos en producción. Cada uno resolvió un problema
+      concreto de negocio.
+    </p>
+
+    <div class="space-y-6">
+      {
+        projects.map((project) => (
+          <article data-anim="project-card" class="group bg-white/[.03] border border-white/[.07] rounded-2xl overflow-hidden hover:border-white/[.12] transition-all duration-300">
+            <div class="flex flex-col lg:flex-row">
+              <!-- Image -->
+              <div class="lg:w-72 h-48 lg:h-auto overflow-hidden flex-shrink-0 bg-zinc-900">
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80 group-hover:opacity-100"
+                />
+              </div>
+
+              <!-- Content -->
+              <div class="flex-1 p-6 sm:p-7">
+                <!-- Label -->
+                <span
+                  class={`inline-flex items-center px-2.5 py-1 text-xs font-semibold rounded-full border mb-4 ${accentMap[project.accent]}`}
+                >
+                  {project.label}
+                </span>
+
+                <h3 class="text-lg font-bold text-white mb-4">
+                  {project.title}
+                </h3>
+
+                <div class="space-y-3 mb-5">
+                  <div class="flex gap-2 text-sm">
+                    <span class="text-zinc-600 font-medium flex-shrink-0 w-20">
+                      Problema
+                    </span>
+                    <span class="text-zinc-400">{project.problem}</span>
+                  </div>
+                  <div class="flex gap-2 text-sm">
+                    <span class="text-zinc-600 font-medium flex-shrink-0 w-20">
+                      Solución
+                    </span>
+                    <span class="text-zinc-400">{project.solution}</span>
+                  </div>
+                  <div class="flex gap-2 text-sm">
+                    <span class="text-zinc-600 font-medium flex-shrink-0 w-20">
+                      Resultado
+                    </span>
+                    <span class="text-zinc-300 font-medium">
+                      {project.result}
+                    </span>
+                  </div>
+                </div>
+
+                <!-- Footer -->
+                <div class="flex items-center justify-between flex-wrap gap-3 pt-4 border-t border-white/[.05]">
+                  <div class="flex flex-wrap gap-1.5">
+                    {project.stack.map((tech) => (
+                      <span class="px-2 py-0.5 text-xs text-zinc-500 bg-white/[.03] border border-white/[.06] rounded-md">
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                  <a
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="flex items-center gap-1.5 text-xs font-medium text-zinc-500 hover:text-white transition-colors duration-200"
+                  >
+                    <ion-icon name="open-outline" class="text-sm" />
+                    Ver proyecto
+                  </a>
+                </div>
+              </div>
+            </div>
+          </article>
+        ))
+      }
     </div>
 
-    <!-- Segunda columna de imágenes -->
-    <div class="flex flex-col gap-4">
-      <div class="flex items-center h-40 justify-center overflow-hidden">
-        <a href="https://github.com/millerbermeo/frontend_cas" class="h-full" target="_blank">
-          <img
-            class="w-full h-full rounded-lg transform transition-transform duration-300 ease-in-out hover:scale-110"
-            src="dashboard.png"
-            alt="Proyecto 4"
-          />
-        </a>
-      </div>
-      <div class="flex items-center h-40 justify-center overflow-hidden">
-        <a href="https://github.com/millerbermeo/chat_socket" class="h-full" target="_blank">
-          <img
-            class="w-full h-full rounded-lg transform transition-transform duration-300 ease-in-out hover:scale-110"
-            src="insta.png"
-            alt="Proyecto 5"
-          />
-        </a>
-      </div>
-      <div class="flex items-center h-40 justify-center overflow-hidden">
-        <a href="https://github.com/millerbermeo/backend_cas" class="h-full" target="_blank">
-          <img
-            class="w-full h-full rounded-lg transform transition-transform duration-300 ease-in-out hover:scale-110"
-            src="login.png"
-            alt="Proyecto 6"
-          />
-        </a>
-      </div>
-    </div>
-
-    <!-- Tercera columna de imágenes -->
-    <div class="flex flex-col gap-4">
-      <div class="flex items-center h-40 justify-center overflow-hidden">
-        <a href="https://mattelsa.vercel.app/" class="h-full"  target="_blank">
-          <img
-            class="w-full h-full rounded-lg transform transition-transform duration-300 ease-in-out hover:scale-110"
-            src="womenmattelsa.PNG"
-            alt="Proyecto 7"
-          />
-        </a>
-      </div>
-      <div class="flex items-center h-40 justify-center overflow-hidden">
-        <a href="https://link-proyecto8.com" class="h-full"  target="_blank">
-          <img
-            class="w-full h-full rounded-lg transform transition-transform duration-300 ease-in-out hover:scale-110"
-            src="menmattelsa.PNG"
-            alt="Proyecto 8"
-          />
-        </a>
-      </div>
-      <div class="flex items-center h-40 justify-center overflow-hidden">
-        <a href="https://github.com/millerbermeo/sistemaFacturacion" class="h-full"  target="_blank">
-          <img
-            class="w-full h-full rounded-lg transform transition-transform duration-300 ease-in-out hover:scale-110"
-            src="img4.png"
-            alt="Proyecto 9"
-          />
-        </a>
-      </div>
-    </div>
-
-    <!-- Cuarta columna de imágenes -->
-    <div class="flex flex-col gap-4">
-      <div class="flex items-center h-40 justify-center overflow-hidden">
-        <a href="https://github.com/millerbermeo/backend_cas" class="h-full"  target="_blank">
-          <img
-            class="w-full h-full rounded-lg transform transition-transform duration-300 ease-in-out hover:scale-110"
-            src="movimientos.png"
-            alt="Proyecto 10"
-          />
-        </a>
-      </div>
-      <div class="flex items-center h-40 justify-center overflow-hidden">
-        <a href="https://mattelsa.vercel.app/" class="h-full"  target="_blank">
-          <img
-            class="w-full h-full rounded-lg transform transition-transform duration-300 ease-in-out hover:scale-110"
-            src="homemattelsa.PNG"
-            alt="Proyecto 11"
-          />
-        </a>
-      </div>
-      <div class="flex items-center h-40 justify-center overflow-hidden">
-        <a href="https://chat-whatsapp-sigma.vercel.app/" class="h-full" target="_blank">
-          <img
-            class="w-full h-full rounded-lg transform transition-transform duration-300 ease-in-out hover:scale-110"
-            src="chat.png"
-            alt="Proyecto 12"
-          />
-        </a>
-      </div>
+    <!-- GitHub CTA -->
+    <div class="mt-8 text-center">
+      <a
+        href="https://github.com/millerbermeo"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium text-zinc-400 hover:text-white bg-white/[.03] hover:bg-white/[.06] border border-white/[.08] rounded-lg transition-all duration-200"
+      >
+        <ion-icon name="logo-github" class="text-base"></ion-icon>
+        Ver más proyectos en GitHub
+      </a>
     </div>
   </div>
-</div>
+</section>

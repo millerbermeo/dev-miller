@@ -1,75 +1,27 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Badge from "../components/Badge.astro";
-import Technologies from "../components/Technologies.astro";
+import Hero from "../components/Hero.astro";
+import About from "../components/About.astro";
+import Experience from "../components/Experience.astro";
+import Stack from "../components/Stack.astro";
 import Projects from "../components/Projects.astro";
-import Perfil from "../components/Perfil.astro";
+import Services from "../components/Services.astro";
+import Contact from "../components/Contact.astro";
+import Footer from "../components/Footer.astro";
 ---
-<Layout title="Portfolio de Miller - Desarrollador y Programador Web">
-	<main>
-		<section
-		id="home"
-			class="w-full lg:w-[840px] mx-auto pt-32 sm:pt-44 flex flex-col items-center pb-16 sm:pb-20 animate-fade-in-y"
-		>
-			<img
-				class="rounded-full w-24 h-24 sm:w-32 sm:h-32 mb-4 p-1 ring-2 ring-gray-300 dark:ring-gray-500"
-				src="miller.jpeg"
-				alt="Foto de perfil"
-			/>
-			<h1
-				class="text-white text-4xl sm:text-6xl lg:text-7xl font-bold flex flex-row gap-x-2 sm:gap-x-4 pb-6 sm:pb-10"
-			>
-				Hey, Soy Miller
-			</h1>
-			<h2 class="text-lg sm:text-xl lg:text-2xl opacity-90 text-wrap text-center px-10">
-				Desarrollador Fullstack con más de 2 años de experiencia en la creación de aplicaciones web y móviles, <span class="opacity-90 text-yellow-300">ofreciendo soluciones eficientes y escalables.</span>
-			</h2>
-			
 
-			<div class="my-6 sm:my-10 grid grid-cols-2 lg:flex flex-row gap-4 sm:gap-6">
-				<a
-					href="https://github.com/millerbermeo"
-					target="_blank"
-					class="inline-flex gap-2 items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:outline-none focus:ring-gray-200 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-700"
-				>
-					<ion-icon name="logo-github" class="text-xl sm:text-2xl"></ion-icon> GitHub
-				</a>
-
-				<a
-					href="https://www.linkedin.com/in/miller-rivera/"
-					target="_blank"
-					class="inline-flex gap-2 items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:outline-none focus:ring-gray-200 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-700"
-				>
-					<ion-icon name="logo-linkedin" class="text-xl sm:text-2xl"></ion-icon>
-					LinkedIn
-				</a>
-
-				<a href="mailto:devmiller25@gmail.com" class="inline-flex gap-2 items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:outline-none focus:ring-gray-200 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-700">
-					<ion-icon name="mail-outline" class="text-xl sm:text-2xl"></ion-icon>
-					devmiller25@gmail.com
-				</a>
-				<a
-				href="cvmillerrivera.pdf"
-				target="_blank"
-				class="inline-flex gap-2 items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:outline-none focus:ring-gray-200 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-700"
-			>
-				<ion-icon name="document-outline" class="text-xl sm:text-2xl"></ion-icon> CV
-			</a>
-			
-				
-			</div>
-			
-		</section>
-
-		<section id="about"
-			class="flex-wrap flex flex-col lg:flex-row lg:justify-center items-start w-[90%] sm:mt-32 gap-8 sm:gap-10 mx-auto"
-		>
-			<Technologies />
-			<Perfil />
-		</section>
-
-		<section class="w-full lg:w-[1240px] mx-auto my-16 sm:my-28">
-			<Projects />
-		</section>
-	</main>
+<Layout
+  title="Miller Bermeo — Desarrollador Fullstack & IA"
+  description="Desarrollador Fullstack con 3 años de experiencia construyendo sistemas POS, SaaS, chatbots con IA y automatizaciones orientadas a negocio. Node.js · Python · React · NestJS."
+>
+  <main>
+    <Hero />
+    <About />
+    <Experience />
+    <Stack />
+    <Projects />
+    <Services />
+    <Contact />
+    <Footer />
+  </main>
 </Layout>
