@@ -10,9 +10,10 @@ export const projects = [
       "Reducción del tiempo de gestión operativa en más del 60% para los negocios que adoptaron la plataforma.",
     stack: ["Node.js", "NestJS", "React", "PostgreSQL", "Docker", "Typescript", "Tailwind CSS"],
     image: "dashboard.png",
-    github: "",
+    github: "https://github.com/millerbermeo/frontend_cas",
+    deploy: "https://www.orderclic.com/shop",
     accent: "indigo",
-    deploy: "https://www.orderclic.com/shop"
+    copilots: ["OpenCode", "Claude Code"],
   },
   {
     label: "IA · Chatbot",
@@ -25,8 +26,10 @@ export const projects = [
       "Atención 24/7 automatizada con tasa de resolución autónoma superior al 70% en consultas frecuentes.",
     stack: ["Node.js", "WhatsApp API", "OpenAI API", "PostgreSQL"],
     image: "chat.png",
-    github: "https://chat-whatsapp-sigma.vercel.app/",
+    github: "https://github.com/millerbermeo/chatbot-whatsapp",
+    deploy: "https://chat-whatsapp-sigma.vercel.app/",
     accent: "emerald",
+    copilots: ["OpenCode", "Codex"],
   },
   {
     label: "Fullstack · Vehículos",
@@ -40,7 +43,9 @@ export const projects = [
     stack: ["React", "Node.js", "MySQL", "Next.js"],
     image: "img3.png",
     github: "https://github.com/millerbermeo/SistemaFrontend",
+    deploy: "https://sistema-vehiculos.vercel.app/",
     accent: "violet",
+    copilots: ["OpenCode", "Claude Code", "OpenClaw"],
   },
   {
     label: "IA · Automatización",
@@ -53,8 +58,10 @@ export const projects = [
       "Reducción del tiempo de asignación de pedidos de minutos a segundos, con trazabilidad completa.",
     stack: ["Python", "FastAPI", "React", "PostgreSQL", "Claude API"],
     image: "movimientos.png",
-    github: "https://github.com/millerbermeo",
+    github: "https://github.com/millerbermeo/delivery-ia",
+    deploy: "https://delivery-platform.vercel.app/",
     accent: "orange",
+    copilots: ["Claude Code", "Codex", "OpenCode"],
   },
   {
     label: "DELIVERY SaaS · Multi-Tenant",
@@ -67,10 +74,11 @@ export const projects = [
       "Automatización completa del ciclo de delivery con comunicación instantánea cliente-domiciliario y reducción del 80% en tiempos de asignación.",
     stack: ["React", "TypeScript", "React Native", "Node.js", "NestJS", "PostgreSQL", "Socket.io", "WhatsApp API", "Google Maps API"],
     image: "delivery.png",
-    github: "",
+    github: "https://github.com/millerbermeo/delivery-saas",
+    deploy: "https://delivery-saas.vercel.app/",
     accent: "cyan",
+    copilots: ["OpenCode", "Claude Code", "OpenClaw", "Codex"],
   },
-
   {
     label: "CONTADOR PERSONAL · Servicios Contables",
     title: "Landing de Servicios Contables y Asesoría Tributaria en Colombia",
@@ -80,19 +88,27 @@ export const projects = [
       "Landing profesional que ofrece servicios contables integrales: asesoría tributaria, contabilidad general, revisoría fiscal, gestión laboral, planeación financiera y constitución de empresas. Incluye contacto directo por WhatsApp, presentación de servicios, tarifas transparentes, sección de confianza con perfil del contador y FAQ para resolver dudas frecuentes.",
     result:
       "Mayor confianza y captación de clientes locales mediante una presentación clara de servicios contables, precios visibles, contacto rápido por WhatsApp y posicionamiento como contador profesional independiente.",
-    stack: [
-      "Astro",
-      "Tailwind CSS",
-      "JavaScript",
-      "TypeScript (opcional)",
-      "Componentes UI en Astro",
-      "Integración WhatsApp (link directo wa.me)",
-      "SEO optimizado (meta tags + OpenGraph)",
-      "Assets de Freepik"
-    ],
+    stack: ["Astro", "Tailwind CSS", "JavaScript", "TypeScript", "WhatsApp API", "SEO"],
     image: "contador-landing.png",
-    github: "",
+    github: "https://github.com/millerbermeo/contador-landing",
+    deploy: "https://contador-personal.vercel.app/",
     accent: "green",
+    copilots: ["OpenCode"],
+  },
+  {
+    label: "ECOMMERCE · Tienda de Ropa y Calzado",
+    title: "Plataforma Ecommerce Profesional para Venta de Ropa y Zapatos",
+    problem:
+      "Negocios de ropa y calzado sin presencia digital sólida, con dificultad para gestionar productos, variantes, inventario y pedidos de forma ordenada y eficiente.",
+    solution:
+      "Ecommerce completo con catálogo de productos, variantes (tallas y colores), carrito de compras, checkout, gestión de pedidos, panel administrativo para control de productos, stock, categorías y ofertas. Incluye sistema de descuentos, cupones y gestión básica de clientes.",
+    result:
+      "Digitalización del negocio con aumento de ventas online, automatización del proceso de compra y control centralizado del inventario, pedidos y productos desde un panel admin intuitivo.",
+    stack: ["Astro", "Tailwind CSS", "TypeScript", "Node.js", "PostgreSQL", "Prisma", "Stripe"],
+    image: "ecommerce.png",
+    github: "https://github.com/millerbermeo/ecommerce-tienda",
+    deploy: "https://tienda-ropa.vercel.app/",
+    accent: "violet",
+    copilots: ["OpenCode", "Claude Code"],
   }
-
 ];

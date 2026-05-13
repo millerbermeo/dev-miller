@@ -1,68 +1,24 @@
 ---
-const projects = [
-  {
-    label: "SaaS · POS",
-    title: "Plataforma POS & SaaS para Gestión Comercial",
-    problem:
-      "Negocios gestionando ventas con hojas de cálculo sin control real de inventario, caja ni reportes.",
-    solution:
-      "Sistema modular en la nube con gestión de inventario, punto de venta, control de caja, reportes en tiempo real y roles de usuario.",
-    result:
-      "Reducción del tiempo de gestión operativa en más del 60% para los negocios que adoptaron la plataforma.",
-    stack: ["Node.js", "NestJS", "React", "PostgreSQL", "Docker"],
-    image: "dashboard.png",
-    github: "https://github.com/millerbermeo/frontend_cas",
-    accent: "indigo",
-  },
-  {
-    label: "IA · Chatbot",
-    title: "Chatbot Inteligente con WhatsApp API + IA",
-    problem:
-      "Empresas perdiendo clientes potenciales por no poder atender consultas fuera de horario laboral.",
-    solution:
-      "Bot conversacional integrado con WhatsApp Business API y modelos de IA (OpenAI) para responder preguntas, calificar leads y escalar a un humano cuando es necesario.",
-    result:
-      "Atención 24/7 automatizada con tasa de resolución autónoma superior al 70% en consultas frecuentes.",
-    stack: ["Node.js", "WhatsApp API", "OpenAI API", "PostgreSQL"],
-    image: "chat.png",
-    github: "https://chat-whatsapp-sigma.vercel.app/",
-    accent: "emerald",
-  },
-  {
-    label: "Fullstack · Vehículos",
-    title: "Sistema de Gestión y Venta de Vehículos",
-    problem:
-      "Concesionarios administrando su inventario vehicular de manera manual, sin visibilidad en tiempo real ni seguimiento de clientes.",
-    solution:
-      "Plataforma web fullstack con módulos de inventario, seguimiento de prospectos, fichas técnicas y panel administrativo con métricas de ventas.",
-    result:
-      "Digitalización completa del proceso de venta, desde la captura del lead hasta el cierre del negocio.",
-    stack: ["React", "Node.js", "MySQL", "Next.js"],
-    image: "img3.png",
-    github: "https://github.com/millerbermeo/SistemaFrontend",
-    accent: "violet",
-  },
-  {
-    label: "IA · Automatización",
-    title: "Sistema de Domicilios con Automatización IA",
-    problem:
-      "Proceso de asignación de pedidos manual, lento y con alta tasa de errores en la distribución.",
-    solution:
-      "Plataforma de delivery con asignación inteligente de repartidores, seguimiento en tiempo real, notificaciones automáticas y rutas optimizadas con IA.",
-    result:
-      "Reducción del tiempo de asignación de pedidos de minutos a segundos, con trazabilidad completa.",
-    stack: ["Python", "FastAPI", "React", "PostgreSQL", "Claude API"],
-    image: "movimientos.png",
-    github: "https://github.com/millerbermeo",
-    accent: "orange",
-  },
-];
+import { projects } from '../data/projects';
+import CodexIcon from './icons/CodexIcon.astro';
+import ClaudeCodeIcon from './icons/ClaudeCodeIcon.astro';
+import OpenCodeIcon from './icons/OpenCodeIcon.astro';
+import OpenClawIcon from './icons/OpenClawIcon.astro';
+
+const copilotIcons: Record<string, any> = {
+  "Codex": CodexIcon,
+  "Claude Code": ClaudeCodeIcon,
+  "OpenCode": OpenCodeIcon,
+  "OpenClaw": OpenClawIcon,
+};
 
 const accentMap: Record<string, string> = {
   indigo: "border-indigo-500/30 text-indigo-400 bg-indigo-500/10",
   emerald: "border-emerald-500/30 text-emerald-400 bg-emerald-500/10",
   violet: "border-violet-500/30 text-violet-400 bg-violet-500/10",
   orange: "border-orange-500/30 text-orange-400 bg-orange-500/10",
+  cyan: "border-cyan-500/30 text-cyan-400 bg-cyan-500/10",
+  green: "border-green-500/30 text-green-400 bg-green-500/10",
 };
 ---
 
@@ -135,7 +91,7 @@ const accentMap: Record<string, string> = {
                 </div>
 
                 <!-- Footer -->
-                <div class="flex items-center justify-between flex-wrap gap-3 pt-3 sm:pt-4 border-t border-white/[.05]">
+                <div class="space-y-3 pt-3 sm:pt-4 border-t border-white/[.05]">
                   <div class="flex flex-wrap gap-1.5">
                     {project.stack.map((tech) => (
                       <span class="px-2 py-0.5 text-xs text-zinc-500 bg-white/[.03] border border-white/[.06] rounded-md">
@@ -143,15 +99,46 @@ const accentMap: Record<string, string> = {
                       </span>
                     ))}
                   </div>
-                  <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="flex items-center gap-1.5 text-xs font-medium text-zinc-500 hover:text-white transition-colors duration-200 flex-shrink-0"
-                  >
-                    <ion-icon name="open-outline" class="text-sm" />
-                    Ver proyecto
-                  </a>
+                  {project.copilots && project.copilots.length > 0 && (
+                    <div class="flex items-center gap-2 flex-wrap">
+                      <span class="text-xs text-zinc-600 font-medium">AI Copilot:</span>
+                      {project.copilots.map((copilot: string) => {
+                        const IconComponent = copilotIcons[copilot];
+                        return (
+                          <span class="inline-flex items-center gap-1 px-2 py-0.5 text-xs text-cyan-400 bg-cyan-500/10 border border-cyan-500/20 rounded-md">
+                            {IconComponent && <IconComponent />}
+                            {copilot}
+                          </span>
+                        );
+                      })}
+                    </div>
+                  )}
+                  <div class="flex items-center justify-between flex-wrap gap-3 pt-2">
+                    <div class="flex items-center gap-3">
+                      {project.deploy && (
+                        <a
+                          href={project.deploy}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="flex items-center gap-1.5 text-xs font-medium text-zinc-500 hover:text-white transition-colors duration-200 flex-shrink-0"
+                        >
+                          <ion-icon name="globe-outline" class="text-sm" />
+                          Deploy
+                        </a>
+                      )}
+                      {project.github && (
+                        <a
+                          href={project.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="flex items-center gap-1.5 text-xs font-medium text-zinc-500 hover:text-white transition-colors duration-200 flex-shrink-0"
+                        >
+                          <ion-icon name="logo-github" class="text-sm" />
+                          GitHub
+                        </a>
+                      )}
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

@@ -12,6 +12,10 @@ import DockerIcon from "./icons/DockerIcon.astro";
 import GitIcon from "./icons/GitIcon.astro";
 import GithubIcon from "./icons/GithubIcon.astro";
 import LInuxIcon from "./icons/LInuxIcon.astro";
+import CodexIcon from "./icons/CodexIcon.astro";
+import ClaudeCodeIcon from "./icons/ClaudeCodeIcon.astro";
+import OpenCodeIcon from "./icons/OpenCodeIcon.astro";
+import OpenClawIcon from "./icons/OpenClawIcon.astro";
 
 const categories = [
   {
@@ -71,6 +75,15 @@ const categories = [
       { name: "GitHub", icon: "github" },
       { name: "REST APIs", color: "#6366f1", letter: "API" },
       { name: "Principios SOLID", color: "#8B5CF6", letter: "S" },
+    ],
+  },
+  {
+    label: "AI Copilots",
+    items: [
+      { name: "Claude Code", icon: "claude-code" },
+      { name: "OpenCode", icon: "opencode" },
+      { name: "OpenClaw", icon: "openclaw" },
+      { name: "Codex", icon: "codex" },
     ],
   },
 ];
@@ -162,7 +175,27 @@ const categories = [
                   )}
                   {item.icon === "github" && (
                     <span class="icon-wrap">
-                      <GithubIcon />t
+                      <GithubIcon />
+                    </span>
+                  )}
+                  {item.icon === "codex" && (
+                    <span class="icon-wrap">
+                      <CodexIcon />
+                    </span>
+                  )}
+                  {item.icon === "claude-code" && (
+                    <span class="icon-wrap">
+                      <ClaudeCodeIcon />
+                    </span>
+                  )}
+                  {item.icon === "opencode" && (
+                    <span class="icon-wrap">
+                      <OpenCodeIcon />
+                    </span>
+                  )}
+                  {item.icon === "openclaw" && (
+                    <span class="icon-wrap">
+                      <OpenClawIcon />
                     </span>
                   )}
                   {item.color && item.letter && (

@@ -1,0 +1,144 @@
+---
+const education = [
+  {
+    title: "Ingeniería de Software",
+    institution: "Universidad (en curso)",
+    period: "2025 — Presente",
+    badge: "Actualmente",
+    badgeColor: "bg-emerald-500/10 text-emerald-400 border-emerald-500/30",
+    description:
+      "Formación profesional en ingeniería de software con enfoque en arquitecturas modernas, diseño de sistemas escalables y metodologías ágiles.",
+    accent: "indigo",
+  },
+  {
+    title: "Tecnólogo en Análisis y Desarrollo de Software",
+    institution: "SENA",
+    period: "2022 — 2024",
+    badge: "Finalizado",
+    badgeColor: "bg-blue-500/10 text-blue-400 border-blue-500/30",
+    description:
+      "Formación técnica integral en análisis, diseño, desarrollo e implementación de soluciones de software, con énfasis en metodologías ágiles y buenas prácticas de programación.",
+    accent: "blue",
+  },
+  {
+    title: "Técnico en Sistemas",
+    institution: "Institución Técnica",
+    period: "2020",
+    badge: "Finalizado",
+    badgeColor: "bg-violet-500/10 text-violet-400 border-violet-500/30",
+    description:
+      "Formación técnica en fundamentos de sistemas informáticos, mantenimiento de equipos, redes básicas y soporte técnico.",
+    accent: "violet",
+  },
+];
+
+const courses = [
+  "Desarrollo Web (Platzi)",
+  "JavaScript & Node.js (Platzi)",
+  "Bases de Datos (Platzi)",
+  "Python & APIs (Platzi)",
+];
+
+const accentColors: Record<string, string> = {
+  indigo: "bg-indigo-500 border-indigo-400",
+  blue: "bg-blue-500 border-blue-400",
+  violet: "bg-violet-500 border-violet-400",
+};
+---
+
+<section id="education" class="py-16 sm:py-24 px-4 sm:px-6">
+  <div class="max-w-4xl mx-auto">
+    <p
+      class="text-xs font-semibold uppercase tracking-widest text-indigo-400 mb-3"
+    >
+      Formación
+    </p>
+    <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-3 sm:mb-4">
+      Estudios & preparación
+    </h2>
+    <p class="text-zinc-500 mb-8 sm:mb-12 text-sm sm:text-[15px]">
+      Mi camino de aprendizaje en tecnología, desde lo fundamental hasta la especialización.
+    </p>
+
+    <!-- Timeline -->
+    <div class="relative">
+      <!-- Timeline bar -->
+      <div
+        class="absolute left-[7px] top-2 bottom-2 w-px bg-gradient-to-b from-indigo-500/60 via-white/10 to-transparent hidden sm:block"
+      ></div>
+
+      <div class="space-y-6">
+        {
+          education.map((item, index) => (
+            <div
+              data-anim="edu-card"
+              class="relative sm:pl-10"
+            >
+              <!-- Timeline dot -->
+              <div
+                class={`hidden sm:block absolute left-0 top-[18px] w-[15px] h-[15px] rounded-full border-2 ${accentColors[item.accent]} ring-4 ring-[#080808]`}
+              ></div>
+
+              <!-- Card -->
+              <div class="bg-white/[.03] border border-white/[.08] rounded-2xl p-5 sm:p-6 hover:border-white/[.14] transition-all duration-300">
+                <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-3">
+                  <div>
+                    <h3 class="text-base sm:text-lg font-bold text-white">
+                      {item.title}
+                    </h3>
+                    <p class="text-sm text-zinc-400 mt-0.5">{item.institution}</p>
+                  </div>
+                  <div class="flex items-center gap-2 flex-shrink-0">
+                    <span
+                      class={`inline-flex items-center px-2.5 py-1 text-xs font-semibold rounded-full border ${item.badgeColor}`}
+                    >
+                      {item.badge}
+                    </span>
+                    <span class="text-xs text-zinc-600 font-medium whitespace-nowrap">
+                      {item.period}
+                    </span>
+                  </div>
+                </div>
+                <p class="text-sm text-zinc-500 leading-relaxed">
+                  {item.description}
+                </p>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <!-- Cursos complementarios -->
+    <div class="mt-8">
+      <div class="bg-white/[.03] border border-white/[.08] rounded-2xl p-5 sm:p-6">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center flex-shrink-0">
+            <ion-icon name="school-outline" class="text-amber-400 text-base" />
+          </div>
+          <div>
+            <h3 class="text-sm font-semibold text-white">Cursos complementarios</h3>
+            <p class="text-xs text-zinc-500">Platzi · Autoformación continua</p>
+          </div>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          {
+            courses.map((course) => (
+              <span class="px-2.5 py-1 text-xs text-zinc-400 bg-white/[.04] border border-white/[.06] rounded-md hover:border-amber-500/30 hover:text-zinc-200 transition-colors duration-200">
+                {course}
+              </span>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  @media (min-width: 640px) {
+    [data-anim="edu-card"]:first-child .ring-\[#080808\] {
+      box-shadow: 0 0 0 4px #080808;
+    }
+  }
+</style>
