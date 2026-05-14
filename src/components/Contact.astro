@@ -10,6 +10,7 @@
       <!-- Glow -->
       <div
         class="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_100%,rgba(99,102,241,0.08),transparent)] pointer-events-none"
+        aria-hidden="true"
       >
       </div>
 
@@ -23,7 +24,7 @@
         ¿Tienes un proyecto o propuesta?
       </h2>
       <p class="text-zinc-500 text-sm sm:text-[15px] max-w-xl mx-auto mb-8 sm:mb-10">
-        Estoy disponible para proyectos freelance, posiciones de trabajo y
+        Disponible para proyectos freelance, posiciones de trabajo y
         colaboraciones. Respondo en menos de 24 horas.
       </p>
 
@@ -35,16 +36,27 @@
           href="mailto:devmiller25@gmail.com"
           class="inline-flex items-center justify-center gap-2 px-5 sm:px-7 py-3 text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-500 rounded-lg transition-all duration-200 hover:shadow-lg hover:shadow-indigo-500/20"
         >
-          <ion-icon name="mail-outline" class="text-base flex-shrink-0"
+          <ion-icon name="mail-outline" class="text-base flex-shrink-0" aria-hidden="true"
           ></ion-icon>
           <span class="truncate">devmiller25@gmail.com</span>
         </a>
         <a
+          href="https://wa.me/573000000000?text=Hola%20Miller%2C%20me%20interesa%20tu%20trabajo"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center justify-center gap-2 px-5 sm:px-7 py-3 text-sm font-semibold text-emerald-400 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 rounded-lg transition-all duration-200"
+        >
+          <ion-icon name="logo-whatsapp" class="text-base flex-shrink-0" aria-hidden="true"
+          ></ion-icon>
+          WhatsApp
+        </a>
+        <a
           href="cvmillerrivera.pdf"
           target="_blank"
+          rel="noopener noreferrer"
           class="inline-flex items-center justify-center gap-2 px-5 sm:px-7 py-3 text-sm font-semibold text-zinc-300 bg-white/[.05] hover:bg-white/[.08] border border-white/[.08] rounded-lg transition-all duration-200"
         >
-          <ion-icon name="document-outline" class="text-base flex-shrink-0"
+          <ion-icon name="document-outline" class="text-base flex-shrink-0" aria-hidden="true"
           ></ion-icon>
           Descargar CV
         </a>
@@ -52,9 +64,9 @@
 
       <!-- Divider -->
       <div class="flex items-center gap-4 max-w-xs mx-auto mb-6 sm:mb-8">
-        <div class="flex-1 h-px bg-white/[.06]"></div>
-        <span class="text-xs text-zinc-700 whitespace-nowrap">o encuéntrame en</span>
-        <div class="flex-1 h-px bg-white/[.06]"></div>
+        <div class="flex-1 h-px bg-white/[.06]" aria-hidden="true"></div>
+        <span class="text-xs text-zinc-600 whitespace-nowrap">o encuéntrame en</span>
+        <div class="flex-1 h-px bg-white/[.06]" aria-hidden="true"></div>
       </div>
 
       <!-- Social links -->
@@ -63,18 +75,20 @@
           href="https://github.com/millerbermeo"
           target="_blank"
           rel="noopener noreferrer"
-          class="flex items-center gap-2 text-sm text-zinc-600 hover:text-white transition-colors duration-200"
+          class="flex items-center gap-2 text-sm text-zinc-500 hover:text-white transition-colors duration-200"
+          aria-label="GitHub de Miller Bermeo"
         >
-          <ion-icon name="logo-github" class="text-xl"></ion-icon>
+          <ion-icon name="logo-github" class="text-xl" aria-hidden="true"></ion-icon>
           <span>GitHub</span>
         </a>
         <a
           href="https://www.linkedin.com/in/miller-rivera/"
           target="_blank"
           rel="noopener noreferrer"
-          class="flex items-center gap-2 text-sm text-zinc-600 hover:text-white transition-colors duration-200"
+          class="flex items-center gap-2 text-sm text-zinc-500 hover:text-white transition-colors duration-200"
+          aria-label="LinkedIn de Miller Bermeo"
         >
-          <ion-icon name="logo-linkedin" class="text-xl"></ion-icon>
+          <ion-icon name="logo-linkedin" class="text-xl" aria-hidden="true"></ion-icon>
           <span>LinkedIn</span>
         </a>
       </div>

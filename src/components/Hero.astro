@@ -11,7 +11,9 @@
       <span
         class="inline-flex items-center gap-2 px-3 py-1 text-xs font-medium text-emerald-400 bg-emerald-400/10 border border-emerald-400/20 rounded-full"
       >
-        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"
+        <span
+          class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"
+          aria-hidden="true"
         ></span>
         Disponible para nuevos proyectos
       </span>
@@ -22,34 +24,32 @@
       data-anim="hero-title"
       class="text-[2.5rem] sm:text-5xl lg:text-7xl font-bold tracking-tight leading-[1.08] mb-5 sm:mb-6"
     >
-      <span class="text-white">Hola, soy</span>
+      <span class="text-white">Soy Miller Bermeo</span>
       <br />
       <span
         class="bg-gradient-to-r from-indigo-400 via-violet-400 to-purple-400 bg-clip-text text-transparent"
       >
-        Miller Bermeo
+        Fullstack Developer & IA
       </span>
     </h1>
 
-    <!-- Role -->
+    <!-- Value proposition -->
     <p
       data-anim="hero-role"
       class="text-base sm:text-xl lg:text-2xl text-zinc-400 font-medium mb-4 sm:mb-5"
     >
-      Desarrollador Fullstack · Backend · IA &amp; Automatización
+      Backend · Automatización · Sistemas que escalan en producción
     </p>
 
-    <!-- Value proposition -->
     <p
       data-anim="hero-desc"
       class="text-sm sm:text-base lg:text-lg text-zinc-500 max-w-2xl leading-relaxed mb-8 sm:mb-10"
     >
-      Construyo sistemas que resuelven problemas reales de negocio: desde
-      plataformas SaaS y POS hasta chatbots inteligentes y automatizaciones con
-      IA.
-      <span class="text-zinc-300 font-medium"
-        >3 años de experiencia, 1.5 en producción profesional.</span
-      >
+      Construyo plataformas SaaS, sistemas POS y automatizaciones con IA que
+      resuelven problemas reales de negocio.
+      <span class="text-zinc-300 font-medium">
+        3 años construyendo, 1.5 en producción profesional con impacto medible.
+      </span>
     </p>
 
     <!-- CTAs -->
@@ -66,6 +66,7 @@
       <a
         href="cvmillerrivera.pdf"
         target="_blank"
+        rel="noopener noreferrer"
         class="px-6 py-3 text-sm font-semibold text-zinc-300 bg-white/[.05] hover:bg-white/[.08] border border-white/[.08] rounded-lg transition-all duration-200 text-center"
       >
         Descargar CV
@@ -87,28 +88,47 @@
         href="https://github.com/millerbermeo"
         target="_blank"
         rel="noopener noreferrer"
-        class="flex items-center gap-2 text-sm text-zinc-600 hover:text-white transition-colors duration-200"
+        class="flex items-center gap-2 text-sm text-zinc-500 hover:text-white transition-colors duration-200"
+        aria-label="GitHub de Miller Bermeo"
       >
-        <ion-icon name="logo-github" class="text-lg"></ion-icon>
+        <ion-icon name="logo-github" class="text-lg" aria-hidden="true"></ion-icon>
         <span>GitHub</span>
       </a>
       <a
         href="https://www.linkedin.com/in/miller-rivera/"
         target="_blank"
         rel="noopener noreferrer"
-        class="flex items-center gap-2 text-sm text-zinc-600 hover:text-white transition-colors duration-200"
+        class="flex items-center gap-2 text-sm text-zinc-500 hover:text-white transition-colors duration-200"
+        aria-label="LinkedIn de Miller Bermeo"
       >
-        <ion-icon name="logo-linkedin" class="text-lg"></ion-icon>
+        <ion-icon name="logo-linkedin" class="text-lg" aria-hidden="true"></ion-icon>
         <span>LinkedIn</span>
       </a>
       <a
         href="mailto:devmiller25@gmail.com"
-        class="flex items-center gap-2 text-sm text-zinc-600 hover:text-white transition-colors duration-200"
+        class="flex items-center gap-2 text-sm text-zinc-500 hover:text-white transition-colors duration-200"
+        aria-label="Enviar email a Miller Bermeo"
       >
-        <ion-icon name="mail-outline" class="text-lg"></ion-icon>
+        <ion-icon name="mail-outline" class="text-lg" aria-hidden="true"></ion-icon>
         <span class="hidden sm:inline">devmiller25@gmail.com</span>
         <span class="sm:hidden">Email</span>
       </a>
     </div>
   </div>
+
+  <!-- Scroll indicator -->
+  <a
+    href="#about"
+    aria-label="Ir a la sección Sobre mí"
+    class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 text-zinc-700 hover:text-zinc-400 transition-colors duration-200 animate-bounce"
+  >
+    <span class="text-[10px] uppercase tracking-widest font-medium">Scroll</span>
+    <ion-icon name="chevron-down-outline" class="text-base" aria-hidden="true"></ion-icon>
+  </a>
 </section>
+
+<style>
+  section {
+    position: relative;
+  }
+</style>

@@ -4,7 +4,7 @@ const year = new Date().getFullYear();
 
 <footer class="py-8 px-4 sm:px-6 border-t border-white/[.06]">
   <div class="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
-    <p class="text-sm text-zinc-700">
+    <p class="text-sm text-zinc-500">
       © {year} Miller Bermeo · Desarrollador Fullstack & IA
     </p>
     <div class="flex items-center gap-5">
@@ -12,27 +12,45 @@ const year = new Date().getFullYear();
         href="https://github.com/millerbermeo"
         target="_blank"
         rel="noopener noreferrer"
-        class="text-zinc-700 hover:text-zinc-400 transition-colors duration-200"
+        class="text-zinc-500 hover:text-white transition-colors duration-200"
         aria-label="GitHub"
       >
-        <ion-icon name="logo-github" class="text-lg"></ion-icon>
+        <ion-icon name="logo-github" class="text-lg" aria-hidden="true"></ion-icon>
       </a>
       <a
         href="https://www.linkedin.com/in/miller-rivera/"
         target="_blank"
         rel="noopener noreferrer"
-        class="text-zinc-700 hover:text-zinc-400 transition-colors duration-200"
+        class="text-zinc-500 hover:text-white transition-colors duration-200"
         aria-label="LinkedIn"
       >
-        <ion-icon name="logo-linkedin" class="text-lg"></ion-icon>
+        <ion-icon name="logo-linkedin" class="text-lg" aria-hidden="true"></ion-icon>
       </a>
       <a
         href="mailto:devmiller25@gmail.com"
-        class="text-zinc-700 hover:text-zinc-400 transition-colors duration-200"
+        class="text-zinc-500 hover:text-white transition-colors duration-200"
         aria-label="Email"
       >
-        <ion-icon name="mail-outline" class="text-lg"></ion-icon>
+        <ion-icon name="mail-outline" class="text-lg" aria-hidden="true"></ion-icon>
       </a>
+
+      <!-- Separator -->
+      <span class="w-px h-4 bg-white/[.08]" aria-hidden="true"></span>
+
+      <!-- Back to top -->
+      <button
+        id="back-to-top"
+        aria-label="Volver al inicio"
+        class="text-zinc-500 hover:text-white transition-colors duration-200"
+      >
+        <ion-icon name="arrow-up-outline" class="text-lg" aria-hidden="true"></ion-icon>
+      </button>
     </div>
   </div>
 </footer>
+
+<script>
+  document.getElementById("back-to-top")?.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+</script>

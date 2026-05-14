@@ -38,6 +38,27 @@ const {
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
 
+    <!-- Canonical & theme -->
+    <link rel="canonical" href="https://millerbermeo.dev/" />
+    <meta name="theme-color" content="#080808" />
+
+    <!-- Structured data -->
+    <script is:inline type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Miller Bermeo",
+        "jobTitle": "Desarrollador Fullstack & IA",
+        "url": "https://millerbermeo.dev",
+        "email": "devmiller25@gmail.com",
+        "knowsAbout": ["Node.js", "NestJS", "Python", "FastAPI", "React", "Next.js", "PostgreSQL", "Docker", "AWS", "OpenAI API", "Claude API"],
+        "sameAs": [
+          "https://github.com/millerbermeo",
+          "https://www.linkedin.com/in/miller-rivera/"
+        ]
+      }
+    </script>
+
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>

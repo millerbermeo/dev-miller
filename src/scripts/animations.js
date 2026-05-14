@@ -88,6 +88,18 @@ function initExperience() {
 }
 
 // ─────────────────────────────────────────────────────────
+// EDUCATION — cards con stagger desde abajo
+// ─────────────────────────────────────────────────────────
+function initEducation() {
+  scrollFade("[data-anim='edu-card']", {
+    trigger: "#education",
+    y: 30,
+    duration: 0.65,
+    stagger: 0.1,
+  });
+}
+
+// ─────────────────────────────────────────────────────────
 // STACK — scale + fade con stagger rápido
 // ─────────────────────────────────────────────────────────
 function initStack() {
@@ -174,7 +186,7 @@ function initContact() {
 // TÍTULOS DE SECCIÓN — fade sutil en cada sección
 // ─────────────────────────────────────────────────────────
 function initSectionTitles() {
-  const sections = ["#about", "#experience", "#stack", "#projects", "#services", "#contact"];
+  const sections = ["#about", "#experience", "#education", "#stack", "#projects", "#services", "#contact"];
 
   sections.forEach((id) => {
     const el = document.querySelector(id);
@@ -206,6 +218,7 @@ function initSectionTitles() {
 initHero();
 initAbout();
 initExperience();
+initEducation();
 initStack();
 initProjects();
 initServices();
