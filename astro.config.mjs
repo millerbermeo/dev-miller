@@ -1,7 +1,7 @@
 import { defineConfig } from 'astro/config';
 
-import tailwind from "@astrojs/tailwind";
-
+// Sitio estático desplegado en Vercel (autodetecta Astro, sin adapter).
+// Tailwind 3 se integra vía PostCSS (postcss.config.mjs), no como integración de Astro.
 export default defineConfig({
-  integrations: [tailwind()]
+  site: 'https://millerbermeo.dev',
 });

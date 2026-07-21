@@ -1,6 +1,8 @@
 ---
 import Header from "../components/Header.astro";
+import "../styles/global.css";
 import "@fontsource-variable/onest";
+import "@fontsource-variable/space-grotesk";
 
 interface Props {
   title?: string;
@@ -62,16 +64,39 @@ const {
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+
+    <!--
+      Anti-flash de tema: se ejecuta ANTES del render del <body>.
+      Lee la preferencia guardada o el sistema, y aplica `.dark` de inmediato
+      para que nunca se vea el tema equivocado al cargar.
+    -->
+    <script is:inline>
+      (() => {
+        const stored = localStorage.getItem("theme");
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)"
+        ).matches;
+        // Oscuro por defecto: solo es claro si se guardó "light" explícitamente.
+        const dark = stored ? stored === "dark" : true || prefersDark;
+        document.documentElement.classList.toggle("dark", dark);
+        document.documentElement.style.colorScheme = dark ? "dark" : "light";
+      })();
+    </script>
   </head>
-  <body>
-    <!-- Fixed dark background with grid -->
-    <div class="fixed inset-0 -z-10 bg-[#080808]">
-      <div
-        class="absolute inset-0 bg-[linear-gradient(to_right,#ffffff06_1px,transparent_1px),linear-gradient(to_bottom,#ffffff06_1px,transparent_1px)] bg-[size:72px_72px]"
-      ></div>
-      <div
-        class="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-5%,rgba(99,102,241,0.1),transparent)]"
-      ></div>
+  <body class="bg-bg text-fg antialiased">
+    <!-- ── Fondo futurista con profundidad (fijo, decorativo) ── -->
+    <div class="bg-scene fixed inset-0 -z-10 overflow-hidden" aria-hidden="true">
+      <!-- Grid sutil -->
+      <div class="bg-grid absolute inset-0"></div>
+      <!-- Aurora: dos manchas de gradiente que derivan lento -->
+      <div class="aurora-wrap absolute inset-0">
+        <div class="aurora aurora--1"></div>
+        <div class="aurora aurora--2"></div>
+      </div>
+      <!-- Grain / noise sutil para que no se vea "vacío" -->
+      <div class="bg-grain absolute inset-0"></div>
+      <!-- Viñeta para enfocar el contenido -->
+      <div class="bg-vignette absolute inset-0"></div>
     </div>
 
     <Header />
@@ -95,35 +120,185 @@ const {
 </html>
 
 <style is:global>
+  /* ─────────────────────────────────────────────────────────────
+     DESIGN TOKENS — variables como canales RGB (para opacidades).
+     :root = tema CLARO · .dark = tema OSCURO (por defecto en el head).
+     ───────────────────────────────────────────────────────────── */
+  :root {
+    /* ☀️ CLARO — off-white, no blanco plano */
+    --bg: 247 247 251; /* #f7f7fb */
+    --surface: 255 255 255;
+    --surface-2: 240 240 246;
+    --border: 15 15 20; /* usado con /8..12 → borde sutil */
+    --text: 17 17 22; /* casi negro */
+    --text-muted: 82 82 99; /* ~55% */
+    --text-faint: 130 130 148;
+    --accent: 109 90 255; /* violeta */
+    --accent-2: 79 92 240; /* índigo */
+    --accent-3: 20 184 214; /* cian sutil */
+    --scrollbar: 210 210 222;
+  }
+
+  .dark {
+    /* 🌙 OSCURO — casi-negro con azul frío */
+    --bg: 10 10 15; /* #0a0a0f */
+    --surface: 18 18 26;
+    --surface-2: 26 26 37;
+    --border: 255 255 255; /* usado con /6..12 */
+    --text: 245 245 250; /* blanco ~90% */
+    --text-muted: 150 150 168; /* ~55% */
+    --text-faint: 100 100 118;
+    --accent: 139 122 255;
+    --accent-2: 129 140 248;
+    --accent-3: 34 211 238;
+    --scrollbar: 40 40 50;
+  }
+
   html {
     font-family: "Onest Variable", system-ui, sans-serif;
     scroll-behavior: smooth;
-    color-scheme: dark;
+    /* Transición suave al cambiar de tema */
+    transition: background-color 0.4s ease, color 0.4s ease;
   }
 
   body {
-    color: #fafafa;
     overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  /* Titulares con la fuente display geométrica */
+  h1,
+  h2,
+  h3,
+  .font-display {
+    font-family: "Space Grotesk Variable", "Onest Variable", sans-serif;
   }
 
   ::selection {
-    background: rgba(99, 102, 241, 0.35);
-    color: #fafafa;
+    background: rgb(var(--accent) / 0.35);
+    color: rgb(var(--text));
   }
 
   ::-webkit-scrollbar {
-    width: 4px;
+    width: 8px;
   }
   ::-webkit-scrollbar-track {
-    background: #080808;
+    background: transparent;
   }
   ::-webkit-scrollbar-thumb {
-    background: #27272a;
-    border-radius: 2px;
+    background: rgb(var(--scrollbar));
+    border-radius: 4px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
   }
 
-  /* Smooth section transitions */
   section {
     scroll-margin-top: 5rem;
+  }
+
+  /* ─────────────────────────────────────────────────────────────
+     FONDO FUTURISTA — grid + aurora + grain + viñeta
+     ───────────────────────────────────────────────────────────── */
+  .bg-scene {
+    background: rgb(var(--bg));
+  }
+
+  /* Grid sutil (más tenue en claro que en oscuro) */
+  .bg-grid {
+    background-image: linear-gradient(
+        to right,
+        rgb(var(--border) / 0.04) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        to bottom,
+        rgb(var(--border) / 0.04) 1px,
+        transparent 1px
+      );
+    background-size: 72px 72px;
+    mask-image: radial-gradient(ellipse 100% 80% at 50% 0%, #000 40%, transparent 100%);
+    -webkit-mask-image: radial-gradient(ellipse 100% 80% at 50% 0%, #000 40%, transparent 100%);
+  }
+
+  /* Aurora: manchas de gradiente muy suaves que derivan lento */
+  .aurora {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(90px);
+    opacity: 0.55;
+    will-change: transform;
+  }
+  .aurora--1 {
+    top: -18%;
+    left: 8%;
+    width: 55vw;
+    height: 55vw;
+    max-width: 720px;
+    max-height: 720px;
+    background: radial-gradient(
+      circle at 50% 50%,
+      rgb(var(--accent) / 0.5),
+      transparent 68%
+    );
+    animation: aurora 22s ease-in-out infinite;
+  }
+  .aurora--2 {
+    top: 10%;
+    right: 2%;
+    width: 48vw;
+    height: 48vw;
+    max-width: 620px;
+    max-height: 620px;
+    background: radial-gradient(
+      circle at 50% 50%,
+      rgb(var(--accent-3) / 0.4),
+      transparent 68%
+    );
+    animation: aurora 26s ease-in-out infinite reverse;
+  }
+  /* En claro bajamos intensidad para no ensuciar el off-white */
+  :root:not(.dark) .aurora {
+    opacity: 0.3;
+  }
+
+  /* Grain / noise: textura fina generada con SVG para que "respire" */
+  .bg-grain {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+    opacity: 0.035;
+    mix-blend-mode: overlay;
+  }
+
+  /* Viñeta para dar foco al centro */
+  .bg-vignette {
+    background: radial-gradient(
+      ellipse 90% 70% at 50% 30%,
+      transparent 55%,
+      rgb(var(--bg) / 0.85) 100%
+    );
+  }
+
+  /* ─────────────────────────────────────────────────────────────
+     ACCESIBILIDAD — respeta prefers-reduced-motion
+     Desactiva animaciones de fondo y de scroll si el usuario lo pide.
+     ───────────────────────────────────────────────────────────── */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+    .aurora {
+      animation: none !important;
+    }
+  }
+
+  /* Focus visible coherente en ambos temas (accesibilidad AA) */
+  :focus-visible {
+    outline: 2px solid rgb(var(--accent));
+    outline-offset: 2px;
+    border-radius: 4px;
   }
 </style>
