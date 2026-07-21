@@ -6,48 +6,58 @@
   class="min-h-screen flex items-center justify-center px-4 sm:px-6 pt-24 md:pt-32 pb-16"
 >
   <div class="max-w-4xl w-full mx-auto">
-    <!-- Availability badge -->
+    <!-- Availability badge con glow pulsante -->
     <div data-anim="hero-badge" class="flex items-center gap-2 mb-6 sm:mb-8">
       <span
-        class="inline-flex items-center gap-2 px-3 py-1 text-xs font-medium text-emerald-400 bg-emerald-400/10 border border-emerald-400/20 rounded-full"
+        class="relative inline-flex items-center gap-2 px-3 py-1 text-xs font-medium text-emerald-600 dark:text-emerald-400 bg-emerald-400/10 border border-emerald-400/25 rounded-full backdrop-blur-sm"
       >
-        <span
-          class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"
-          aria-hidden="true"
-        ></span>
+        <!-- Punto con halo pulsante -->
+        <span class="relative flex h-2 w-2" aria-hidden="true">
+          <span
+            class="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-70 animate-glow-pulse"
+          ></span>
+          <span class="relative inline-flex h-2 w-2 rounded-full bg-emerald-400"></span>
+        </span>
         Disponible para nuevos proyectos
       </span>
     </div>
 
-    <!-- Headline -->
-    <h1
-      data-anim="hero-title"
-      class="text-[2.5rem] sm:text-5xl lg:text-7xl font-bold tracking-tight leading-[1.08] mb-5 sm:mb-6"
-    >
-      <span class="text-white">Soy Miller Bermeo</span>
-      <br />
-      <span
-        class="bg-gradient-to-r from-indigo-400 via-violet-400 to-purple-400 bg-clip-text text-transparent"
+    <!-- Headline: el nombre es el foco visual absoluto -->
+    <div class="relative mb-5 sm:mb-6">
+      <!-- Glow detrás del nombre -->
+      <div
+        class="pointer-events-none absolute -top-8 -left-4 w-72 h-72 sm:w-96 sm:h-96 bg-accent/20 rounded-full blur-3xl"
+        aria-hidden="true"
       >
-        Fullstack Developer & IA
-      </span>
-    </h1>
+      </div>
+      <h1
+        data-anim="hero-title"
+        class="relative font-display text-fluid-hero font-bold tracking-tight"
+      >
+        <span class="block text-fg">Soy Miller Bermeo</span>
+        <span
+          class="block bg-accent-gradient bg-[length:200%_auto] animate-gradient-pan bg-clip-text text-transparent pb-1"
+        >
+          Fullstack Developer & IA
+        </span>
+      </h1>
+    </div>
 
     <!-- Value proposition -->
     <p
       data-anim="hero-role"
-      class="text-base sm:text-xl lg:text-2xl text-zinc-400 font-medium mb-4 sm:mb-5"
+      class="text-base sm:text-xl lg:text-2xl text-muted font-medium mb-4 sm:mb-5"
     >
       Backend · Automatización · Sistemas que escalan en producción
     </p>
 
     <p
       data-anim="hero-desc"
-      class="text-sm sm:text-base lg:text-lg text-zinc-500 max-w-2xl leading-relaxed mb-8 sm:mb-10"
+      class="text-sm sm:text-base lg:text-lg text-muted max-w-2xl leading-relaxed mb-8 sm:mb-10"
     >
       Construyo plataformas SaaS, sistemas POS y automatizaciones con IA que
       resuelven problemas reales de negocio.
-      <span class="text-zinc-300 font-medium">
+      <span class="text-fg/80 font-medium">
         3 años construyendo, 1.5 en producción profesional con impacto medible.
       </span>
     </p>
@@ -59,7 +69,7 @@
     >
       <a
         href="#projects"
-        class="px-6 py-3 text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-500 rounded-lg transition-all duration-200 hover:shadow-lg hover:shadow-indigo-500/20 text-center"
+        class="px-6 py-3 text-sm font-semibold text-white bg-accent hover:bg-accent-2 rounded-lg transition-all duration-200 hover:shadow-lg hover:shadow-accent/25 text-center"
       >
         Ver proyectos →
       </a>
@@ -67,13 +77,13 @@
         href="cvmillerrivera.pdf"
         target="_blank"
         rel="noopener noreferrer"
-        class="px-6 py-3 text-sm font-semibold text-zinc-300 bg-white/[.05] hover:bg-white/[.08] border border-white/[.08] rounded-lg transition-all duration-200 text-center"
+        class="px-6 py-3 text-sm font-semibold text-fg/80 bg-fg/[.05] hover:bg-fg/[.08] border border-line/[.12] rounded-lg transition-all duration-200 text-center"
       >
         Descargar CV
       </a>
       <a
         href="#contact"
-        class="px-6 py-3 text-sm font-medium text-zinc-500 hover:text-zinc-300 transition-colors duration-200 text-center"
+        class="px-6 py-3 text-sm font-medium text-muted hover:text-fg transition-colors duration-200 text-center"
       >
         Trabajemos juntos ↓
       </a>
@@ -88,7 +98,7 @@
         href="https://github.com/millerbermeo"
         target="_blank"
         rel="noopener noreferrer"
-        class="flex items-center gap-2 text-sm text-zinc-500 hover:text-white transition-colors duration-200"
+        class="flex items-center gap-2 text-sm text-muted hover:text-fg transition-colors duration-200"
         aria-label="GitHub de Miller Bermeo"
       >
         <ion-icon name="logo-github" class="text-lg" aria-hidden="true"></ion-icon>
@@ -98,7 +108,7 @@
         href="https://www.linkedin.com/in/miller-rivera/"
         target="_blank"
         rel="noopener noreferrer"
-        class="flex items-center gap-2 text-sm text-zinc-500 hover:text-white transition-colors duration-200"
+        class="flex items-center gap-2 text-sm text-muted hover:text-fg transition-colors duration-200"
         aria-label="LinkedIn de Miller Bermeo"
       >
         <ion-icon name="logo-linkedin" class="text-lg" aria-hidden="true"></ion-icon>
@@ -106,7 +116,7 @@
       </a>
       <a
         href="mailto:devmiller25@gmail.com"
-        class="flex items-center gap-2 text-sm text-zinc-500 hover:text-white transition-colors duration-200"
+        class="flex items-center gap-2 text-sm text-muted hover:text-fg transition-colors duration-200"
         aria-label="Enviar email a Miller Bermeo"
       >
         <ion-icon name="mail-outline" class="text-lg" aria-hidden="true"></ion-icon>
@@ -120,7 +130,7 @@
   <a
     href="#about"
     aria-label="Ir a la sección Sobre mí"
-    class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 text-zinc-700 hover:text-zinc-400 transition-colors duration-200 animate-bounce"
+    class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 text-faint hover:text-muted transition-colors duration-200 animate-bounce"
   >
     <span class="text-[10px] uppercase tracking-widest font-medium">Scroll</span>
     <ion-icon name="chevron-down-outline" class="text-base" aria-hidden="true"></ion-icon>

@@ -42,7 +42,7 @@ const categories = [
       { name: "Node.js", icon: "node" },
       { name: "NestJS", color: "#E0234E", letter: "Ne" },
       { name: "FastAPI", color: "#009688", letter: "FA" },
-      { name: "Flask", color: "#FFFFFF", letter: "Fl" },
+      { name: "Flask", color: "#94A3B8", letter: "Fl" },
     ],
   },
   {
@@ -92,14 +92,14 @@ const categories = [
 <section id="stack" class="py-16 sm:py-24 px-4 sm:px-6">
   <div class="max-w-4xl mx-auto">
     <p
-      class="text-xs font-semibold uppercase tracking-widest text-indigo-400 mb-3"
+      class="text-xs font-semibold uppercase tracking-widest text-accent mb-3"
     >
       Tecnologías
     </p>
-    <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-3 sm:mb-4">
+    <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-fg mb-3 sm:mb-4">
       Stack tecnológico
     </h2>
-    <p class="text-zinc-500 mb-8 sm:mb-12 text-sm sm:text-[15px]">
+    <p class="text-muted mb-8 sm:mb-12 text-sm sm:text-[15px]">
       Herramientas con las que construyo soluciones reales en producción.
     </p>
 
@@ -107,12 +107,12 @@ const categories = [
       {
         categories.map((cat) => (
           <div>
-            <p class="text-xs font-semibold uppercase tracking-wider text-zinc-600 mb-3">
+            <p class="text-xs font-semibold uppercase tracking-wider text-faint mb-3">
               {cat.label}
             </p>
             <div class="flex flex-wrap gap-2">
               {cat.items.map((item) => (
-                <div data-anim="stack-item" class="flex items-center gap-2 px-3 py-2 bg-white/[.03] border border-white/[.07] rounded-xl hover:border-white/[.14] hover:bg-white/[.05] transition-all duration-200 cursor-default">
+                <div data-anim="stack-item" class="stack-chip flex items-center gap-2 px-3 py-2 bg-fg/[.03] border border-line/10 rounded-xl hover:border-accent/40 hover:bg-fg/[.05] hover:-translate-y-0.5 transition-all duration-200 cursor-default">
                   {item.icon === "html" && (
                     <span class="icon-wrap">
                       <HtmlIcon />
@@ -206,7 +206,7 @@ const categories = [
                       {item.letter}
                     </span>
                   )}
-                  <span class="text-sm text-zinc-300 font-medium whitespace-nowrap">
+                  <span class="text-sm text-fg/80 font-medium whitespace-nowrap">
                     {item.name}
                   </span>
                 </div>
@@ -234,5 +234,17 @@ const categories = [
     width: 100% !important;
     height: 100% !important;
     display: block;
+    transition: transform 0.2s ease;
+  }
+
+  /* Micro-zoom del icono al pasar el cursor por la chip */
+  .stack-chip:hover .icon-wrap svg {
+    transform: scale(1.12);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .stack-chip:hover .icon-wrap svg {
+      transform: none;
+    }
   }
 </style>

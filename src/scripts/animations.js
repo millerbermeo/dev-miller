@@ -213,6 +213,54 @@ function initSectionTitles() {
 }
 
 // ─────────────────────────────────────────────────────────
+// COUNT-UP — números de stats animados al entrar en viewport
+// ─────────────────────────────────────────────────────────
+function initCountUp() {
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const nums = document.querySelectorAll("[data-count]");
+  if (!nums.length || reduce) return; // sin animación: se deja el valor final del HTML
+
+  nums.forEach((el) => {
+    const target = parseFloat(el.getAttribute("data-count"));
+    const decimals = parseInt(el.getAttribute("data-decimals") || "0", 10);
+    const suffix = el.getAttribute("data-suffix") || "";
+    const obj = { val: 0 };
+
+    el.textContent = "0" + suffix;
+
+    gsap.to(obj, {
+      val: target,
+      duration: 1.6,
+      ease: "power2.out",
+      scrollTrigger: { trigger: el, start: "top 90%", once: true },
+      onUpdate: () => {
+        el.textContent = obj.val.toFixed(decimals) + suffix;
+      },
+      onComplete: () => {
+        el.textContent = target.toFixed(decimals) + suffix;
+      },
+    });
+  });
+}
+
+// ─────────────────────────────────────────────────────────
+// SPOTLIGHT — borde de las cards que se ilumina siguiendo el cursor
+// (el CSS del efecto vive en Layout.astro; aquí solo actualizamos --mx/--my)
+// ─────────────────────────────────────────────────────────
+function initSpotlight() {
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduce) return;
+
+  document.querySelectorAll("[data-spotlight]").forEach((card) => {
+    card.addEventListener("pointermove", (e) => {
+      const rect = card.getBoundingClientRect();
+      card.style.setProperty("--mx", `${e.clientX - rect.left}px`);
+      card.style.setProperty("--my", `${e.clientY - rect.top}px`);
+    });
+  });
+}
+
+// ─────────────────────────────────────────────────────────
 // INIT
 // ─────────────────────────────────────────────────────────
 initHero();
@@ -224,3 +272,5 @@ initProjects();
 initServices();
 initContact();
 initSectionTitles();
+initCountUp();
+initSpotlight();
