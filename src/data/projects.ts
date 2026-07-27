@@ -9,9 +9,9 @@ export const projects = [
     result:
       "Reducción del tiempo de gestión operativa en más del 60% para los negocios que adoptaron la plataforma.",
     stack: ["Node.js", "NestJS", "React", "PostgreSQL", "Docker", "Typescript", "Tailwind CSS"],
-    image: "dashboard.png",
-    github: "https://github.com/millerbermeo/frontend_cas",
-    deploy: "https://www.orderclic.com/shop",
+    image: "orderclic/img-1.png",
+    images: ["orderclic/img-1.png", "orderclic/img-2.png", "orderclic/img-3.png"],
+    deploy: "https://orderclic.com/",
     accent: "indigo",
     copilots: ["OpenCode", "Claude Code"],
   },
@@ -80,6 +80,23 @@ export const projects = [
     copilots: ["OpenCode", "Claude Code", "OpenClaw", "Codex"],
   },
   {
+    label: "ENVIOSW · Marketplace de Domicilios",
+    title: "Plataforma Web de Domicilios Multi-Comercio para Pitalito, Huila",
+    problem:
+      "Comercios locales (restaurantes, tiendas, farmacias, licoreras) sin un canal digital unificado para vender y coordinar domicilios, obligando a los clientes a contactar cada negocio por separado.",
+    solution:
+      "Marketplace de domicilios con catálogo por categorías (restaurantes, compras, farmacia, licores, mensajería y más), autenticación con correo o Google, ficha de cada comercio con su menú y carrito de compras, y checkout que envía el pedido directamente por WhatsApp al negocio.",
+    result:
+      "Canal de pedidos centralizado para múltiples comercios de Pitalito, con proceso de compra fluido de catálogo a WhatsApp sin fricción para el cliente.",
+    stack: ["React", "TypeScript", "Node.js", "WhatsApp API", "Google OAuth"],
+    image: "enviosw/img-1.png",
+    images: ["enviosw/img-1.png", "enviosw/img-2.png", "enviosw/img-3.png", "enviosw/img-4.png"],
+    github: "https://github.com/enviosw/front_enviosw",
+    deploy: "https://enviosw.com",
+    accent: "amber",
+    copilots: ["Claude Code", "OpenCode"],
+  },
+  {
     label: "CONTADOR PERSONAL · Servicios Contables",
     title: "Landing de Servicios Contables y Asesoría Tributaria en Colombia",
     problem:
@@ -89,11 +106,44 @@ export const projects = [
     result:
       "Mayor confianza y captación de clientes locales mediante una presentación clara de servicios contables, precios visibles, contacto rápido por WhatsApp y posicionamiento como contador profesional independiente.",
     stack: ["Astro", "Tailwind CSS", "JavaScript", "TypeScript", "WhatsApp API", "SEO"],
-    image: "contador-landing.png",
-    github: "https://github.com/millerbermeo/contador-landing",
-    deploy: "https://contador-personal.vercel.app/",
+    image: "landing-contador/img-1.png",
+    images: [
+      "landing-contador/img-1.png",
+      "landing-contador/img-2.png",
+      "landing-contador/img-3.png",
+      "landing-contador/img-4.png",
+      "landing-contador/img-5.png",
+      "landing-contador/img-6.png",
+    ],
+    github: "https://github.com/millerbermeo/contador_landing",
+    deploy: "https://brianpedraza.com/",
     accent: "green",
     copilots: ["OpenCode"],
+  },
+  {
+    label: "MOTOSPARATODOS · Ventas y Créditos",
+    title: "Sistema de Gestión de Ventas, Créditos y Trazabilidad para Concesionario de Motocicletas",
+    problem:
+      "Agencia de venta de motocicletas gestionando cotizaciones y créditos (contado, crédito interno o de terceros) de forma manual, sin trazabilidad del proceso desde la cotización hasta la entrega del vehículo, ni control centralizado de aprobación de créditos.",
+    solution:
+      "Plataforma con módulos de cotizaciones, créditos, flujo de aprobación crediticia, recolección de documentos, facturación, gestión de agentes según la etapa del proceso y entrega del producto. Incluye configuración de porcentajes, IVA y tarifas de seguros, con trazabilidad completa desde la cotización hasta la entrega.",
+    result:
+      "Trazabilidad total del proceso de venta financiada, reducción de errores en la aprobación de créditos y mayor control administrativo para la agencia.",
+    stack: ["React", "Node.js", "NestJS", "PostgreSQL", "TypeScript", "Tailwind CSS"],
+    image: "software-motos/img-1.png",
+    images: [
+      "software-motos/img-1.png",
+      "software-motos/img-2.png",
+      "software-motos/img-3.png",
+      "software-motos/img-4.png",
+      "software-motos/img-5.png",
+      "software-motos/img-6.png",
+      "software-motos/img-7.png",
+    ],
+    github: "https://github.com/millerbermeo/motosparatodos",
+    deploy: "https://tuclick.vozipcolombia.net.co/login",
+    accent: "blue",
+    copilots: ["Claude Code", "OpenCode"],
   },
   {
     label: "ECOMMERCE · Tienda de Ropa y Calzado",
