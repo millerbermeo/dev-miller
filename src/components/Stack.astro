@@ -1,4 +1,5 @@
 ---
+import SectionHeading from "./ui/SectionHeading.astro";
 import HtmlIcon from "./icons/HtmlIcon.astro";
 import CssIcon from "./icons/CssIcon.astro";
 import JavascriptIcon from "./icons/JavascriptIcon.astro";
@@ -17,12 +18,40 @@ import ClaudeCodeIcon from "./icons/ClaudeCodeIcon.astro";
 import OpenCodeIcon from "./icons/OpenCodeIcon.astro";
 import OpenClawIcon from "./icons/OpenClawIcon.astro";
 
-const categories = [
+// Mapa de iconos de marca (en vez de una cadena de condicionales).
+const icons = {
+  html: HtmlIcon,
+  css: CssIcon,
+  js: JavascriptIcon,
+  tailwind: Tailwindicon,
+  react: ReactIcon,
+  nextjs: NextjsIcon,
+  astro: AstroIcon,
+  node: NodeIcon,
+  mysql: MysqlIcon,
+  docker: DockerIcon,
+  linux: LInuxIcon,
+  git: GitIcon,
+  github: GithubIcon,
+  codex: CodexIcon,
+  "claude-code": ClaudeCodeIcon,
+  opencode: OpenCodeIcon,
+  openclaw: OpenClawIcon,
+} as const;
+
+// Logos monocromos blancos: en tema claro se pintan con el color de texto.
+const mono = new Set(["github", "astro"]);
+
+type Item = { name: string; icon?: keyof typeof icons; color?: string; letter?: string };
+
+const categories: { label: string; items: Item[] }[] = [
   {
     label: "Lenguajes",
     items: [
       { name: "Python", color: "#3776AB", letter: "Py" },
       { name: "JavaScript", icon: "js" },
+      { name: "TypeScript", color: "#3178C6", letter: "TS" },
+      { name: "SQL", color: "#F29111", letter: "SQL" },
     ],
   },
   {
@@ -30,10 +59,19 @@ const categories = [
     items: [
       { name: "HTML", icon: "html" },
       { name: "CSS", icon: "css" },
-      { name: "Tailwind CSS", icon: "tailwind" },
       { name: "React", icon: "react" },
       { name: "Next.js", icon: "nextjs" },
       { name: "Astro", icon: "astro" },
+    ],
+  },
+  {
+    label: "Librerías UI/UX",
+    items: [
+      { name: "Tailwind CSS", icon: "tailwind" },
+      { name: "Bootstrap", color: "#7952B3", letter: "Bs" },
+      { name: "shadcn/ui", color: "#94A3B8", letter: "sh" },
+      { name: "HeroUI", color: "#006FEE", letter: "Hu" },
+      { name: "DaisyUI", color: "#FF9903", letter: "Dy" },
     ],
   },
   {
@@ -43,6 +81,7 @@ const categories = [
       { name: "Expo", color: "#4630EB", letter: "Ex" },
       { name: "EAS Build", color: "#3B82F6", letter: "EAS" },
       { name: "Google Play", color: "#01875F", letter: "GP" },
+      { name: "App Store", color: "#0D96F6", letter: "AS" },
     ],
   },
   {
@@ -66,6 +105,8 @@ const categories = [
     items: [
       { name: "Docker", icon: "docker" },
       { name: "Linux", icon: "linux" },
+      { name: "Ubuntu Desktop", color: "#E95420", letter: "Ub" },
+      { name: "Ubuntu Server", color: "#E95420", letter: "Us" },
       { name: "AWS", color: "#FF9900", letter: "AWS" },
     ],
   },
@@ -93,137 +134,55 @@ const categories = [
       { name: "OpenCode", icon: "opencode" },
       { name: "OpenClaw", icon: "openclaw" },
       { name: "Codex", icon: "codex" },
+      { name: "Agentes IA", color: "#A78BFA", letter: "AG" },
+      { name: "Subagentes", color: "#38BDF8", letter: "SA" },
+      { name: "Skills", color: "#34D399", letter: "SK" },
+      { name: "MCP", color: "#F472B6", letter: "MCP" },
     ],
   },
 ];
 ---
 
-<section id="stack" class="py-16 sm:py-24 px-4 sm:px-6">
-  <div class="max-w-4xl mx-auto">
-    <p
-      class="text-xs font-semibold uppercase tracking-widest text-accent mb-3"
-    >
-      Tecnologías
-    </p>
-    <h2
-      class="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-balance text-fg mb-3 sm:mb-4"
-    >
-      Stack tecnológico
-    </h2>
-    <p class="text-muted mb-8 sm:mb-12 text-sm sm:text-[15px] max-w-2xl text-pretty">
-      Lo que uso a diario: backend, frontend, datos, infraestructura e
-      integraciones con IA.
-    </p>
+<section id="stack" aria-labelledby="stack-title" class="section-y">
+  <div class="shell">
+    <SectionHeading
+      id="stack-title"
+      eyebrow="Tecnologías"
+      title="Stack tecnológico"
+      description="Lo que uso a diario: backend, frontend, datos, infraestructura e integraciones con IA."
+    />
 
-    <div class="space-y-8">
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {
-        categories.map((cat) => (
-          <div>
-            <p class="text-xs font-semibold uppercase tracking-wider text-faint mb-3">
-              {cat.label}
-            </p>
-            <div class="flex flex-wrap gap-2">
-              {cat.items.map((item) => (
-                <div data-anim="stack-item" class="stack-chip flex items-center gap-2 px-3 py-2 bg-fg/[.03] border border-line/10 rounded-xl hover:border-accent/40 hover:bg-fg/[.05] hover:-translate-y-0.5 transition-all duration-200 cursor-default">
-                  {item.icon === "html" && (
-                    <span class="icon-wrap">
-                      <HtmlIcon />
-                    </span>
-                  )}
-                  {item.icon === "css" && (
-                    <span class="icon-wrap">
-                      <CssIcon />
-                    </span>
-                  )}
-                  {item.icon === "js" && (
-                    <span class="icon-wrap">
-                      <JavascriptIcon />
-                    </span>
-                  )}
-                  {item.icon === "tailwind" && (
-                    <span class="icon-wrap">
-                      <Tailwindicon />
-                    </span>
-                  )}
-                  {item.icon === "react" && (
-                    <span class="icon-wrap">
-                      <ReactIcon />
-                    </span>
-                  )}
-                  {item.icon === "nextjs" && (
-                    <span class="icon-wrap">
-                      <NextjsIcon />
-                    </span>
-                  )}
-                  {item.icon === "astro" && (
-                    <span class="icon-wrap">
-                      <AstroIcon />
-                    </span>
-                  )}
-                  {item.icon === "node" && (
-                    <span class="icon-wrap">
-                      <NodeIcon />
-                    </span>
-                  )}
-                  {item.icon === "mysql" && (
-                    <span class="icon-wrap">
-                      <MysqlIcon />
-                    </span>
-                  )}
-                  {item.icon === "docker" && (
-                    <span class="icon-wrap">
-                      <DockerIcon />
-                    </span>
-                  )}
-                  {item.icon === "linux" && (
-                    <span class="icon-wrap">
-                      <LInuxIcon />
-                    </span>
-                  )}
-                  {item.icon === "git" && (
-                    <span class="icon-wrap">
-                      <GitIcon />
-                    </span>
-                  )}
-                  {item.icon === "github" && (
-                    <span class="icon-wrap">
-                      <GithubIcon />
-                    </span>
-                  )}
-                  {item.icon === "codex" && (
-                    <span class="icon-wrap">
-                      <CodexIcon />
-                    </span>
-                  )}
-                  {item.icon === "claude-code" && (
-                    <span class="icon-wrap">
-                      <ClaudeCodeIcon />
-                    </span>
-                  )}
-                  {item.icon === "opencode" && (
-                    <span class="icon-wrap">
-                      <OpenCodeIcon />
-                    </span>
-                  )}
-                  {item.icon === "openclaw" && (
-                    <span class="icon-wrap">
-                      <OpenClawIcon />
-                    </span>
-                  )}
-                  {item.color && item.letter && (
-                    <span
-                      class="w-5 h-5 shrink-0 rounded-sm text-[9px] font-bold flex items-center justify-center"
-                      style={`background-color: ${item.color}22; color: ${item.color}; border: 1px solid ${item.color}44;`}
-                    >
-                      {item.letter}
-                    </span>
-                  )}
-                  <span class="text-sm text-fg/80 font-medium whitespace-nowrap">
+        categories.map((cat, i) => (
+          <div data-reveal style={`--reveal-i:${i % 3}`} class:list={["card p-5 sm:p-6", i === categories.length - 1 && "lg:col-span-3"]}>
+            <h3 class="text-footnote font-semibold text-muted">{cat.label}</h3>
+            <ul class="mt-4 flex flex-wrap gap-2">
+              {cat.items.map((item) => {
+                const Logo = item.icon ? icons[item.icon] : null;
+                return (
+                  <li class="chip inline-flex min-h-9 items-center gap-2 rounded-chip bg-fg/[.045] py-1.5 pr-3 pl-2 text-footnote font-medium text-fg">
+                    {Logo ? (
+                      <span
+                        class:list={["logo flex size-5 shrink-0 items-center justify-center", item.icon && mono.has(item.icon) && "logo-mono"]}
+                        aria-hidden="true"
+                      >
+                        <Logo />
+                      </span>
+                    ) : (
+                      <span
+                        class="letter flex h-5 min-w-5 shrink-0 items-center justify-center rounded-md px-0.5 text-[0.5625rem] font-bold"
+                        style={`--c:${item.color}`}
+                        aria-hidden="true"
+                      >
+                        {item.letter}
+                      </span>
+                    )}
                     {item.name}
-                  </span>
-                </div>
-              ))}
-            </div>
+                  </li>
+                );
+              })}
+            </ul>
           </div>
         ))
       }
@@ -232,31 +191,27 @@ const categories = [
 </section>
 
 <style>
-  .icon-wrap {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 20px;
-    height: 20px;
-    shrink: 0;
-    overflow: hidden;
-  }
-
-  .icon-wrap svg {
-    width: 100% !important;
-    height: 100% !important;
+  .logo :global(svg) {
+    width: 100%;
+    height: 100%;
     display: block;
-    transition: transform 0.2s ease;
+  }
+  .chip {
+    transition: background-color var(--dur-fast) var(--ease-out-soft);
+  }
+  .chip:hover {
+    background-color: rgb(var(--fg) / 0.08);
   }
 
-  /* Micro-zoom del icono al pasar el cursor por la chip */
-  .stack-chip:hover .icon-wrap svg {
-    transform: scale(1.12);
+  /* Insignias de letra: tinte del color de marca, legible en ambos temas */
+  .letter {
+    color: color-mix(in oklab, var(--c) 70%, rgb(var(--fg)));
+    background-color: color-mix(in oklab, var(--c) 18%, transparent);
+    box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--c) 30%, transparent);
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .stack-chip:hover .icon-wrap svg {
-      transform: none;
-    }
+  /* Logos blancos (GitHub, Astro) invisibles sobre fondo claro → color de texto */
+  :global(html:not(.dark)) .logo-mono :global([fill="#fff"]) {
+    fill: rgb(var(--fg));
   }
 </style>

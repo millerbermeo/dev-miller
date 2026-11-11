@@ -1,138 +1,127 @@
 ---
+import { Image } from "astro:assets";
+import Button from "./ui/Button.astro";
+import Icon from "./ui/Icon.astro";
+import miller from "../assets/miller.jpeg";
+
+const socials = [
+  { label: "GitHub", href: "https://github.com/millerbermeo", icon: "github" as const },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/miller-rivera/", icon: "linkedin" as const },
+];
 ---
 
 <section
   id="home"
-  class="min-h-screen flex items-center justify-center px-4 sm:px-6 pt-24 md:pt-32 pb-16"
+  aria-labelledby="hero-title"
+  class="relative isolate overflow-hidden pt-[calc(var(--header-h)+3rem)] pb-16 sm:pt-[calc(var(--header-h)+5rem)] sm:pb-24 lg:min-h-[min(100svh,58rem)] lg:pb-28"
 >
-  <div class="max-w-4xl w-full mx-auto">
-    <!-- Availability badge con glow pulsante -->
-    <div data-anim="hero-badge" class="flex items-center gap-2 mb-6 sm:mb-8">
-      <span
-        class="relative inline-flex items-center gap-2 px-3 py-1 text-xs font-medium text-emerald-600 dark:text-emerald-400 bg-emerald-400/10 border border-emerald-400/25 rounded-full backdrop-blur-xs"
-      >
-        <!-- Punto con halo pulsante -->
-        <span class="relative flex h-2 w-2" aria-hidden="true">
-          <span
-            class="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-70 animate-glow-pulse"
-          ></span>
-          <span class="relative inline-flex h-2 w-2 rounded-full bg-emerald-400"></span>
-        </span>
-        Disponible para nuevos retos
-      </span>
-    </div>
+  <!-- Luz ambiental estática (sin animación a pantalla completa) -->
+  <div class="hero-glow pointer-events-none absolute inset-x-0 top-0 -z-10 h-[42rem]" aria-hidden="true"></div>
 
-    <!-- Headline: el nombre es el foco visual absoluto -->
-    <div class="relative mb-5 sm:mb-6">
-      <!-- Glow detrás del nombre -->
-      <div
-        class="pointer-events-none absolute -top-8 -left-4 w-72 h-72 sm:w-96 sm:h-96 bg-accent/20 rounded-full blur-3xl"
-        aria-hidden="true"
-      >
+  <div class="shell grid items-center gap-12 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,0.7fr)] lg:gap-16">
+    <div>
+      <!-- Avatar compacto en móvil/tablet -->
+      <div data-reveal class="mb-6 lg:hidden">
+        <Image
+          src={miller}
+          alt=""
+          width={144}
+          height={144}
+          densities={[1, 2]}
+          loading="eager"
+          class="size-18 rounded-full object-cover shadow-card"
+        />
       </div>
-      <h1
-        data-anim="hero-title"
-        class="relative font-display text-fluid-hero font-bold tracking-tight text-balance"
-      >
-        <span class="block text-fg">Soy Miller Bermeo</span>
-        <span
-          class="block bg-accent-gradient bg-[length:200%_auto] animate-gradient-pan bg-clip-text text-transparent pb-1"
-        >
-          Desarrollador Fullstack & IA
+
+      <p data-reveal style="--reveal-i:1" class="mb-6">
+        <span class="inline-flex items-center gap-2 rounded-full bg-success/10 px-3 py-1.5 text-footnote font-medium text-success">
+          <span class="relative flex size-2" aria-hidden="true">
+            <span class="absolute inline-flex size-full rounded-full bg-success opacity-60 motion-safe:animate-ping-soft"></span>
+            <span class="relative inline-flex size-2 rounded-full bg-success"></span>
+          </span>
+          Disponible para nuevos retos
         </span>
+      </p>
+
+      <h1 id="hero-title" data-reveal style="--reveal-i:2" class="text-display text-fg">
+        <span class="block">Miller Bermeo</span>
+        <span class="text-gradient block pb-[0.06em]">Desarrollador Fullstack&nbsp;&amp;&nbsp;IA</span>
       </h1>
+
+      <p data-reveal style="--reveal-i:3" class="mt-6 max-w-[38ch] text-lead font-medium text-fg/85">
+        Backend · Automatización · Sistemas que escalan en producción
+      </p>
+
+      <p data-reveal style="--reveal-i:4" class="mt-4 max-w-[60ch] text-callout text-muted sm:text-base">
+        Construyo plataformas SaaS, sistemas POS y automatizaciones con IA que
+        resuelven problemas reales de negocio.{" "}
+        <span class="font-medium text-fg">18+ proyectos entregados · 4 años construyendo, 3 en producción.</span>
+      </p>
+
+      <div data-reveal style="--reveal-i:5" class="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
+        <Button href="#projects" size="lg">
+          Ver proyectos
+          <Icon name="arrow-right" class="size-4 transition-transform duration-200 group-hover/btn:translate-x-0.5" />
+        </Button>
+        <Button href="/cvmillerrivera.pdf" variant="secondary" size="lg" external>
+          <Icon name="download" class="size-4" />
+          Descargar CV
+        </Button>
+      </div>
+
+      <ul data-reveal style="--reveal-i:6" class="mt-8 flex flex-wrap items-center gap-1 -ml-3" aria-label="Redes y contacto">
+        {
+          socials.map((s) => (
+            <li>
+              <Button href={s.href} variant="ghost" size="sm" external class="text-muted hover:text-fg">
+                <Icon name={s.icon} class="size-4" />
+                {s.label}
+              </Button>
+            </li>
+          ))
+        }
+        <li>
+          <Button href="mailto:devmiller25@gmail.com" variant="ghost" size="sm" class="text-muted hover:text-fg">
+            <Icon name="mail" class="size-4" />
+            <span class="hidden sm:inline">devmiller25@gmail.com</span>
+            <span class="sm:hidden">Email</span>
+          </Button>
+        </li>
+      </ul>
     </div>
 
-    <!-- Value proposition -->
-    <p
-      data-anim="hero-role"
-      class="text-base sm:text-xl lg:text-2xl text-muted font-medium max-w-2xl text-pretty mb-4 sm:mb-5"
-    >
-      Backend · Automatización · Sistemas que escalan en producción
-    </p>
-
-    <p
-      data-anim="hero-desc"
-      class="text-sm sm:text-base lg:text-lg text-muted max-w-2xl leading-relaxed mb-8 sm:mb-10"
-    >
-      Construyo plataformas SaaS, sistemas POS y automatizaciones con IA que
-      resuelven problemas reales de negocio.
-      <span class="text-fg/80 font-medium">
-        18+ proyectos entregados · 4 años construyendo, 3 en producción.
-      </span>
-    </p>
-
-    <!-- CTAs -->
-    <div
-      data-anim="hero-cta"
-      class="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3 sm:gap-4 mb-10 sm:mb-12"
-    >
-      <a
-        href="#projects"
-        class="px-6 py-3 text-sm font-semibold text-white bg-accent hover:bg-accent-2 rounded-lg transition-all duration-200 hover:shadow-lg hover:shadow-accent/25 text-center"
-      >
-        Ver proyectos →
-      </a>
-      <a
-        href="cvmillerrivera.pdf"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="px-6 py-3 text-sm font-semibold text-fg/80 bg-fg/[.05] hover:bg-fg/[.08] border border-line/[.12] rounded-lg transition-all duration-200 text-center"
-      >
-        Descargar CV
-      </a>
-    </div>
-
-    <!-- Social links -->
-    <div
-      data-anim="hero-social"
-      class="flex flex-wrap items-center gap-4 sm:gap-5"
-    >
-      <a
-        href="https://github.com/millerbermeo"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="flex items-center gap-2 text-sm text-muted hover:text-fg transition-colors duration-200"
-        aria-label="GitHub de Miller Bermeo"
-      >
-        <ion-icon name="logo-github" class="text-lg" aria-hidden="true"></ion-icon>
-        <span>GitHub</span>
-      </a>
-      <a
-        href="https://www.linkedin.com/in/miller-rivera/"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="flex items-center gap-2 text-sm text-muted hover:text-fg transition-colors duration-200"
-        aria-label="LinkedIn de Miller Bermeo"
-      >
-        <ion-icon name="logo-linkedin" class="text-lg" aria-hidden="true"></ion-icon>
-        <span>LinkedIn</span>
-      </a>
-      <a
-        href="mailto:devmiller25@gmail.com"
-        class="flex items-center gap-2 text-sm text-muted hover:text-fg transition-colors duration-200"
-        aria-label="Enviar email a Miller Bermeo"
-      >
-        <ion-icon name="mail-outline" class="text-lg" aria-hidden="true"></ion-icon>
-        <span class="hidden sm:inline">devmiller25@gmail.com</span>
-        <span class="sm:hidden">Email</span>
-      </a>
+    <!-- Retrato grande en escritorio -->
+    <div data-reveal style="--reveal-i:3" class="hidden lg:block">
+      <figure class="portrait relative mx-auto aspect-[4/5] w-full max-w-sm overflow-hidden rounded-panel bg-surface-2 shadow-card">
+        <Image
+          src={miller}
+          alt="Retrato de Miller Bermeo"
+          widths={[384, 640, 900]}
+          sizes="(min-width: 1024px) 24rem, 0px"
+          loading="eager"
+          fetchpriority="high"
+          class="size-full object-cover"
+        />
+        <figcaption class="material absolute inset-x-3 bottom-3 flex items-center justify-between gap-3 rounded-2xl px-4 py-3">
+          <span>
+            <span class="block text-footnote font-semibold text-fg">Miller Bermeo</span>
+            <span class="block text-caption text-muted">Fullstack · Backend · IA</span>
+          </span>
+          <span class="text-caption font-medium text-muted">Colombia</span>
+        </figcaption>
+      </figure>
     </div>
   </div>
-
-  <!-- Scroll indicator -->
-  <a
-    href="#about"
-    aria-label="Ir a la sección Sobre mí"
-    class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 text-faint hover:text-muted transition-colors duration-200 animate-bounce"
-  >
-    <span class="text-[10px] uppercase tracking-widest font-medium">Scroll</span>
-    <ion-icon name="chevron-down-outline" class="text-base" aria-hidden="true"></ion-icon>
-  </a>
 </section>
 
 <style>
-  section {
-    position: relative;
+  .hero-glow {
+    background:
+      radial-gradient(48rem 26rem at 18% 0%, rgb(var(--accent-fill) / 0.16), transparent 70%),
+      radial-gradient(36rem 22rem at 85% 10%, rgb(var(--accent) / 0.1), transparent 70%);
+    mask-image: linear-gradient(to bottom, #000 40%, transparent);
+  }
+  :global(html:not(.dark)) .hero-glow {
+    opacity: 0.7;
   }
 </style>

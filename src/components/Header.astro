@@ -1,336 +1,308 @@
 ---
 import ThemeToggle from "./ThemeToggle.astro";
+import Button from "./ui/Button.astro";
 
 const navItems = [
-  { label: "Inicio", href: "#home" },
   { label: "Sobre mí", href: "#about" },
   { label: "Proyectos", href: "#projects" },
   { label: "Experiencia", href: "#experience" },
+  { label: "Stack", href: "#stack" },
   { label: "Servicios", href: "#services" },
 ];
 ---
 
-<header class="fixed top-0 left-0 right-0 z-50">
-  <!-- ══════════════ Desktop nav pill (md+) ══════════════ -->
-  <div class="hidden md:flex justify-center pt-4 px-4">
-    <!--
-      Borde iluminado: wrapper con gradiente de acento a 1px (p-px),
-      la nav interior lleva el fondo glass. Efecto "borde que brilla".
-    -->
-    <div
-      id="nav-pill"
-      class="group relative rounded-full p-px bg-linear-to-r from-accent/40 via-line/10 to-accent-3/40 shadow-lg shadow-black/10 transition-all duration-300"
-    >
-      <nav
-        class="relative flex items-center gap-1 px-3 py-2 rounded-full bg-surface/70 backdrop-blur-xl"
-        aria-label="Navegación principal"
+<header id="site-header" class="fixed inset-x-0 top-0 z-50">
+  <!-- Barra: material translúcido; el borde inferior aparece solo al hacer scroll -->
+  <div class="header-bar material relative z-20">
+    <div class="shell flex h-(--header-h) items-center justify-between gap-4">
+      <a
+        href="#home"
+        class="press -mx-2 rounded-full px-2 py-1 text-headline font-semibold tracking-tight text-fg"
+        aria-label="Miller Bermeo, ir al inicio"
       >
-        <!-- Reflejo superior (highlight glass) -->
-        <span
-          class="pointer-events-none absolute inset-x-6 top-0 h-px bg-linear-to-r from-transparent via-white/50 to-transparent"
-          aria-hidden="true"></span>
+        Miller Bermeo
+      </a>
 
-        <a
-          href="#home"
-          class="font-display text-sm font-semibold text-fg px-3 mr-1 border-r border-line/10 pr-4"
-        >
-          Miller<span class="text-accent">.</span>
-        </a>
-
-        {
-          navItems.map(({ label, href }) => (
-            <a
-              href={href}
-              data-nav-link={href.slice(1)}
-              class="nav-link relative px-3 py-1.5 text-sm text-muted hover:text-fg rounded-full transition-colors duration-200"
-            >
-              {label}
-            </a>
-          ))
-        }
-
-        <!-- CTA magnético con glow -->
-        <a
-          id="magnetic-contact"
-          href="#contact"
-          class="magnetic ml-2 px-4 py-1.5 text-sm font-semibold text-white bg-accent hover:bg-accent-2 rounded-full transition-[background-color,box-shadow,transform] duration-200 hover:shadow-lg hover:shadow-accent/40 will-change-transform"
-        >
-          Contactar
-        </a>
-
-        <span class="ml-1.5 pl-1.5 border-l border-line/10">
-          <ThemeToggle />
-        </span>
+      <nav aria-label="Principal" class="hidden md:block">
+        <ul class="flex items-center gap-0.5">
+          {
+            navItems.map(({ label, href }) => (
+              <li>
+                <a
+                  href={href}
+                  data-nav-link={href.slice(1)}
+                  class="nav-link press rounded-full px-3 py-2 text-footnote font-medium text-muted hover:text-fg"
+                >
+                  {label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
       </nav>
+
+      <div class="flex items-center gap-1.5">
+        <ThemeToggle />
+        <Button href="#contact" size="sm" class="hidden sm:inline-flex">Contactar</Button>
+
+        <button
+          type="button"
+          id="menu-toggle"
+          class="press relative inline-flex size-10 items-center justify-center rounded-full text-fg hover:bg-fg/[.07] md:hidden"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+          aria-label="Abrir menú"
+        >
+          <!-- Dos líneas que se convierten en una X -->
+          <span class="menu-line menu-line--top" aria-hidden="true"></span>
+          <span class="menu-line menu-line--bottom" aria-hidden="true"></span>
+        </button>
+      </div>
     </div>
   </div>
 
-  <!-- ══════════════ Mobile header bar ══════════════ -->
-  <div
-    class="flex md:hidden items-center justify-between px-5 py-4 bg-bg/85 backdrop-blur-xl border-b border-line/[.06]"
-  >
-    <a
-      href="#home"
-      class="font-display text-base font-bold text-fg"
-      aria-label="Ir al inicio"
-    >
-      Miller<span class="text-accent">.</span>
-    </a>
-
-    <div class="flex items-center gap-2">
-      <ThemeToggle />
-      <button
-        id="mobile-menu-btn"
-        class="flex items-center justify-center w-9 h-9 rounded-lg text-muted hover:text-fg hover:bg-fg/5 transition-all duration-200"
-        aria-label="Abrir menú"
-        aria-expanded="false"
-        aria-controls="mobile-menu"
-      >
-        <ion-icon name="menu-outline" class="text-2xl" aria-hidden="true"></ion-icon>
-      </button>
-    </div>
+  <!-- ══════ Menú móvil: hoja que nace bajo el botón (arriba-derecha) ══════ -->
+  <div id="menu-scrim" class="menu-scrim fixed inset-0 z-0 bg-black/30 md:hidden" aria-hidden="true">
   </div>
 
-  <!-- ══════════════ Mobile drawer (panel deslizante) ══════════════ -->
-  <!-- Overlay -->
-  <div
-    id="mobile-overlay"
-    class="fixed inset-0 z-40 bg-black/50 backdrop-blur-xs opacity-0 pointer-events-none transition-opacity duration-300 md:hidden"
-    aria-hidden="true"
-  >
-  </div>
-
-  <!-- Panel drawer (desde la derecha) -->
   <div
     id="mobile-menu"
-    class="fixed top-0 right-0 z-50 h-[100dvh] w-[82%] max-w-xs translate-x-full transition-transform duration-300 ease-out bg-surface/95 backdrop-blur-2xl border-l border-line/10 shadow-2xl shadow-black/30 md:hidden flex flex-col"
+    class="mobile-menu absolute inset-x-3 top-[calc(var(--header-h)+0.5rem)] z-10 md:hidden"
     role="dialog"
     aria-modal="true"
     aria-label="Menú de navegación"
-    aria-hidden="true"
   >
-    <!-- Cabecera del panel -->
-    <div class="flex items-center justify-between px-5 py-4 border-b border-line/10">
-      <span class="font-display text-base font-bold text-fg">
-        Miller<span class="text-accent">.</span>
-      </span>
-      <button
-        id="mobile-close-btn"
-        class="flex items-center justify-center w-9 h-9 rounded-lg text-muted hover:text-fg hover:bg-fg/5 transition-all duration-200"
-        aria-label="Cerrar menú"
-      >
-        <ion-icon name="close-outline" class="text-2xl" aria-hidden="true"></ion-icon>
-      </button>
-    </div>
-
-    <!-- Enlaces -->
-    <nav class="flex flex-col gap-1 px-4 py-5" aria-label="Menú móvil">
-      {
-        navItems.map(({ label, href }) => (
-          <a
-            href={href}
-            class="mobile-link px-4 py-3 text-sm font-medium text-muted hover:text-fg rounded-xl hover:bg-fg/5 transition-all duration-200"
-          >
-            {label}
-          </a>
-        ))
-      }
-      <a
-        href="#contact"
-        class="mobile-link mt-3 px-4 py-3 text-sm font-semibold text-white bg-accent hover:bg-accent-2 rounded-xl text-center transition-all duration-200"
-      >
-        Contactar
-      </a>
+    <nav
+      aria-label="Principal (móvil)"
+      class="material rounded-panel p-2 shadow-float"
+    >
+      <ul class="flex flex-col">
+        {
+          navItems.map(({ label, href }, i) => (
+            <li class="menu-item" style={`--i:${i}`}>
+              <a
+                href={href}
+                data-nav-link={href.slice(1)}
+                class="press flex min-h-12 items-center justify-between rounded-2xl px-4 text-headline text-fg hover:bg-fg/[.06] aria-[current=true]:text-accent"
+              >
+                {label}
+                <svg class="size-4 text-faint" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"></path></svg>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <div class="menu-item mt-2 border-t px-2 pt-3 pb-1" style={`--i:${navItems.length}`}>
+        <Button href="#contact" size="lg" class="w-full">Contactar</Button>
+      </div>
     </nav>
-
-    <!-- Pie del panel: redes -->
-    <div class="mt-auto px-5 py-5 border-t border-line/10 flex items-center gap-5">
-      <a
-        href="https://github.com/millerbermeo"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="mobile-focusable text-muted hover:text-fg transition-colors duration-200"
-        aria-label="GitHub"
-      >
-        <ion-icon name="logo-github" class="text-xl" aria-hidden="true"></ion-icon>
-      </a>
-      <a
-        href="https://www.linkedin.com/in/miller-rivera/"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="mobile-focusable text-muted hover:text-fg transition-colors duration-200"
-        aria-label="LinkedIn"
-      >
-        <ion-icon name="logo-linkedin" class="text-xl" aria-hidden="true"></ion-icon>
-      </a>
-      <a
-        href="mailto:devmiller25@gmail.com"
-        class="mobile-focusable text-muted hover:text-fg transition-colors duration-200"
-        aria-label="Email"
-      >
-        <ion-icon name="mail-outline" class="text-xl" aria-hidden="true"></ion-icon>
-      </a>
-    </div>
   </div>
 </header>
 
-<script>
-  // ═══════════════════ Mobile drawer accesible ═══════════════════
-  const btn = document.getElementById("mobile-menu-btn");
-  const closeBtn = document.getElementById("mobile-close-btn");
-  const menu = document.getElementById("mobile-menu");
-  const overlay = document.getElementById("mobile-overlay");
-  let lastFocused: HTMLElement | null = null;
-
-  function focusable(): HTMLElement[] {
-    if (!menu) return [];
-    return Array.from(
-      menu.querySelectorAll<HTMLElement>(
-        'a[href], button:not([disabled])'
-      )
-    );
-  }
-
-  function openMenu() {
-    if (!menu || !overlay) return;
-    lastFocused = document.activeElement as HTMLElement;
-    menu.classList.remove("translate-x-full");
-    menu.setAttribute("aria-hidden", "false");
-    overlay.classList.remove("opacity-0", "pointer-events-none");
-    btn?.setAttribute("aria-expanded", "true");
-    document.body.style.overflow = "hidden"; // bloquea scroll de fondo
-    // Foco al primer elemento accionable del panel
-    focusable()[0]?.focus();
-  }
-
-  function closeMenu() {
-    if (!menu || !overlay) return;
-    menu.classList.add("translate-x-full");
-    menu.setAttribute("aria-hidden", "true");
-    overlay.classList.add("opacity-0", "pointer-events-none");
-    btn?.setAttribute("aria-expanded", "false");
-    document.body.style.overflow = "";
-    lastFocused?.focus(); // devuelve el foco al botón que abrió
-  }
-
-  btn?.addEventListener("click", openMenu);
-  closeBtn?.addEventListener("click", closeMenu);
-  overlay?.addEventListener("click", closeMenu);
-  document
-    .querySelectorAll(".mobile-link")
-    .forEach((link) => link.addEventListener("click", closeMenu));
-
-  // Teclado: Escape cierra · Tab hace focus-trap dentro del panel
-  document.addEventListener("keydown", (e) => {
-    const isOpen = menu && !menu.classList.contains("translate-x-full");
-    if (!isOpen) return;
-
-    if (e.key === "Escape") {
-      closeMenu();
-      return;
-    }
-    if (e.key === "Tab") {
-      const items = focusable();
-      if (!items.length) return;
-      const first = items[0];
-      const last = items[items.length - 1];
-      if (e.shiftKey && document.activeElement === first) {
-        e.preventDefault();
-        last.focus();
-      } else if (!e.shiftKey && document.activeElement === last) {
-        e.preventDefault();
-        first.focus();
-      }
-    }
-  });
-
-  // Cierra si se pasa a desktop
-  window.addEventListener("resize", () => {
-    if (window.innerWidth >= 768) closeMenu();
-  });
-
-  // ═══════════════════ Scroll-spy (nav activo) ═══════════════════
-  const sections = ["home", "about", "projects", "experience", "services", "contact"];
-  const navLinks = document.querySelectorAll("[data-nav-link]");
-
-  function setActive(id: string) {
-    navLinks.forEach((link) => {
-      const isActive = link.getAttribute("data-nav-link") === id;
-      link.classList.toggle("is-active", isActive);
-    });
-  }
-
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) setActive(entry.target.id);
-      });
-    },
-    { rootMargin: "-40% 0px -55% 0px", threshold: 0 }
-  );
-  sections.forEach((id) => {
-    const el = document.getElementById(id);
-    if (el) observer.observe(el);
-  });
-
-  // ═══════════════════ Botón magnético (respeta reduced-motion) ═══════════════════
-  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const magnetic = document.getElementById("magnetic-contact");
-
-  if (magnetic && !reduce) {
-    const strength = 0.35; // cuánto sigue al cursor
-    magnetic.addEventListener("mousemove", (e) => {
-      const rect = magnetic.getBoundingClientRect();
-      const x = e.clientX - (rect.left + rect.width / 2);
-      const y = e.clientY - (rect.top + rect.height / 2);
-      magnetic.style.transform = `translate(${x * strength}px, ${y * strength}px)`;
-    });
-    magnetic.addEventListener("mouseleave", () => {
-      magnetic.style.transform = "translate(0, 0)";
-    });
-  }
-
-  // ═══════════════════ Estado "scrolled" de la píldora ═══════════════════
-  const pill = document.getElementById("nav-pill");
-  function onScroll() {
-    if (!pill) return;
-    pill.classList.toggle("nav-scrolled", window.scrollY > 24);
-  }
-  onScroll();
-  window.addEventListener("scroll", onScroll, { passive: true });
-</script>
-
 <style>
-  /* Indicador de enlace activo: píldora de fondo + punto de acento */
-  .nav-link.is-active {
-    color: rgb(var(--text));
-    background: rgb(var(--text) / 0.06);
+  /* Borde por scroll: hairline + sombra suave en vez de línea dura fija */
+  .header-bar {
+    box-shadow: 0 1px 0 transparent;
+    transition: box-shadow var(--dur-base) var(--ease-out-soft);
   }
-  .nav-link.is-active::after {
-    content: "";
+  :global([data-scrolled]) .header-bar {
+    box-shadow:
+      0 1px 0 rgb(var(--line) / var(--line-alpha)),
+      0 8px 24px -16px rgb(var(--shadow) / 0.25);
+  }
+
+  /* Enlace activo (scroll-spy) */
+  .nav-link[aria-current="true"] {
+    color: rgb(var(--fg));
+    background-color: rgb(var(--fg) / 0.07);
+  }
+
+  /* Icono hamburguesa → X */
+  .menu-line {
     position: absolute;
-    bottom: 2px;
     left: 50%;
-    transform: translateX(-50%);
-    width: 4px;
-    height: 4px;
+    width: 1.125rem;
+    height: 1.75px;
+    margin-left: -0.5625rem;
     border-radius: 9999px;
-    background: rgb(var(--accent));
-  }
-
-  /* Al hacer scroll, la píldora se eleva y opaca un poco más */
-  #nav-pill.nav-scrolled {
-    box-shadow: 0 10px 30px -10px rgb(0 0 0 / 0.25);
-  }
-  #nav-pill.nav-scrolled nav {
-    background: rgb(var(--surface) / 0.85);
-  }
-
-  /* Transición suave del botón magnético al soltar */
-  #magnetic-contact {
+    background: currentColor;
     transition:
-      transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
-      background-color 0.2s,
-      box-shadow 0.2s;
+      translate var(--dur-base) var(--ease-spring),
+      rotate var(--dur-base) var(--ease-spring);
+  }
+  .menu-line--top {
+    translate: 0 -3.5px;
+  }
+  .menu-line--bottom {
+    translate: 0 3.5px;
+  }
+  [aria-expanded="true"] .menu-line--top {
+    translate: 0 0;
+    rotate: 45deg;
+  }
+  [aria-expanded="true"] .menu-line--bottom {
+    translate: 0 0;
+    rotate: -45deg;
+  }
+
+  /* Hoja: escala desde el botón (arriba-derecha), entra y sale por el mismo camino */
+  .mobile-menu {
+    transform-origin: top right;
+    opacity: 0;
+    scale: 0.94;
+    translate: 0 -0.5rem;
+    visibility: hidden;
+    transition:
+      opacity var(--dur-fast) var(--ease-in-soft),
+      scale var(--dur-fast) var(--ease-in-soft),
+      translate var(--dur-fast) var(--ease-in-soft),
+      visibility 0s linear var(--dur-fast);
+  }
+  .menu-scrim {
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      opacity var(--dur-base) var(--ease-out-soft),
+      visibility 0s linear var(--dur-base);
+  }
+  :global([data-menu-open]) .mobile-menu {
+    opacity: 1;
+    scale: 1;
+    translate: 0 0;
+    visibility: visible;
+    transition:
+      opacity var(--dur-fast) var(--ease-out-soft),
+      scale 420ms var(--ease-spring),
+      translate 420ms var(--ease-spring),
+      visibility 0s;
+  }
+  :global([data-menu-open]) .menu-scrim {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity var(--dur-base) var(--ease-out-soft), visibility 0s;
+  }
+
+  /* Ítems escalonados al abrir */
+  .menu-item {
+    opacity: 0;
+    translate: 0 -0.25rem;
+    transition:
+      opacity var(--dur-fast) var(--ease-out-soft),
+      translate var(--dur-base) var(--ease-spring);
+  }
+  :global([data-menu-open]) .menu-item {
+    opacity: 1;
+    translate: 0 0;
+    transition-delay: calc(40ms + var(--i) * 30ms);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mobile-menu,
+    :global([data-menu-open]) .mobile-menu,
+    .menu-item,
+    :global([data-menu-open]) .menu-item {
+      scale: none;
+      translate: none;
+      transition-property: opacity, visibility;
+      transition-delay: 0s;
+    }
   }
 </style>
+
+<script>
+  const header = document.getElementById("site-header")!;
+  const toggle = document.getElementById("menu-toggle") as HTMLButtonElement;
+  const menu = document.getElementById("mobile-menu")!;
+  const scrim = document.getElementById("menu-scrim")!;
+  const root = document.documentElement;
+
+  /* ── Borde al hacer scroll (sentinel sin listener de scroll) ── */
+  const sentinel = document.createElement("div");
+  sentinel.setAttribute("aria-hidden", "true");
+  sentinel.style.cssText = "position:absolute;top:0;left:0;height:8px;width:1px;pointer-events:none";
+  document.body.prepend(sentinel);
+  new IntersectionObserver(([entry]) => {
+    header.toggleAttribute("data-scrolled", !entry.isIntersecting);
+  }).observe(sentinel);
+
+  /* ── Menú móvil: foco atrapado, Escape, fondo inerte ── */
+  // Todo lo visible del header (logo, tema, contactar, botón y menú) en orden
+  // del DOM: el tema sigue accesible con el menú abierto.
+  const focusables = () =>
+    [...header.querySelectorAll<HTMLElement>("a[href], button")].filter(
+      (el) => !el.hasAttribute("disabled") && el.getClientRects().length > 0 && getComputedStyle(el).visibility !== "hidden",
+    );
+  const background = () => document.querySelectorAll<HTMLElement>("main, footer");
+
+  let open = false;
+
+  const setOpen = (next: boolean, { restoreFocus = true } = {}) => {
+    if (open === next) return;
+    open = next;
+    header.toggleAttribute("data-menu-open", open);
+    toggle.setAttribute("aria-expanded", String(open));
+    toggle.setAttribute("aria-label", open ? "Cerrar menú" : "Abrir menú");
+    root.style.overflow = open ? "hidden" : "";
+    background().forEach((el) => (el.inert = open));
+
+    if (open) {
+      requestAnimationFrame(() => menu.querySelector<HTMLElement>("a[href]")?.focus());
+    } else if (restoreFocus) {
+      toggle.focus();
+    }
+  };
+
+  toggle.addEventListener("click", () => setOpen(!open));
+  scrim.addEventListener("click", () => setOpen(false));
+
+  // Al elegir un destino se cierra sin devolver el foco (el ancla lo gestiona)
+  header.querySelectorAll("a[href]").forEach((a) =>
+    a.addEventListener("click", () => setOpen(false, { restoreFocus: false })),
+  );
+
+  document.addEventListener("keydown", (e) => {
+    if (!open) return;
+    if (e.key === "Escape") {
+      e.preventDefault();
+      setOpen(false);
+      return;
+    }
+    if (e.key !== "Tab") return;
+    const items = focusables();
+    const first = items[0];
+    const last = items[items.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  });
+
+  // Si se pasa a escritorio con el menú abierto, se cierra
+  window.matchMedia("(min-width: 48rem)").addEventListener("change", (e) => {
+    if (e.matches) setOpen(false, { restoreFocus: false });
+  });
+
+  /* ── Scroll-spy: marca la sección visible ── */
+  const links = document.querySelectorAll<HTMLAnchorElement>("[data-nav-link]");
+  // Se observan todas las secciones: las que no están en el menú (inicio,
+  // contacto) limpian el estado activo.
+  const sections = document.querySelectorAll<HTMLElement>("main section[id]");
+
+  const spy = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        const id = entry.target.id;
+        links.forEach((l) => {
+          if (l.dataset.navLink === id) l.setAttribute("aria-current", "true");
+          else l.removeAttribute("aria-current");
+        });
+      }
+    },
+    { rootMargin: "-45% 0px -50% 0px" },
+  );
+  sections.forEach((s) => spy.observe(s));
+</script>

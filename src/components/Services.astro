@@ -1,117 +1,97 @@
 ---
+import SectionHeading from "./ui/SectionHeading.astro";
+import Icon from "./ui/Icon.astro";
+import Button from "./ui/Button.astro";
+
 const services = [
   {
-    icon: "sparkles-outline",
+    icon: "sparkles",
     title: "Automatización con IA",
     desc: "Integro modelos de lenguaje (OpenAI, Claude) en tus procesos operativos para automatizar tareas repetitivas, clasificar información y generar respuestas inteligentes.",
     tags: ["OpenAI", "Claude API", "Agentes IA", "n8n"],
-    accent: "indigo",
   },
   {
-    icon: "server-outline",
+    icon: "server",
     title: "Desarrollo Backend & APIs",
     desc: "Diseño y construyo APIs RESTful robustas, escalables y bien documentadas con Node.js/NestJS o Python/FastAPI. Arquitectura limpia, SOLID y orientada a producción.",
     tags: ["Node.js", "NestJS", "FastAPI", "PostgreSQL", "Docker"],
-    accent: "violet",
   },
   {
-    icon: "chatbubbles-outline",
+    icon: "chat",
     title: "Chatbots & Integraciones",
     desc: "Desarrollo chatbots funcionales para WhatsApp Business API con flujos conversacionales, lógica de negocio personalizada y conexión a tus sistemas existentes.",
     tags: ["WhatsApp API", "Chatbot", "Node.js", "Webhooks"],
-    accent: "emerald",
   },
   {
-    icon: "layers-outline",
+    icon: "layers",
     title: "Plataformas SaaS & Fullstack",
     desc: "Desarrollo plataformas web completas multi-tenant: desde la arquitectura hasta el despliegue. POS, dashboards administrativos, sistemas de gestión y más.",
     tags: ["React", "Next.js", "NestJS", "PostgreSQL", "AWS"],
-    accent: "orange",
   },
   {
-    icon: "phone-portrait-outline",
+    icon: "phone",
     title: "Apps Móviles con React Native",
     desc: "Desarrollo apps Android (y iOS) con React Native + Expo: del prototipo a producción en Google Play, con builds y entregas gestionadas con EAS.",
     tags: ["React Native", "Expo", "EAS", "Google Play", "TypeScript"],
-    accent: "cyan",
   },
+] as const;
+
+// Bento: 2 grandes arriba + 3 en la fila inferior (lg). 2 columnas en tablet.
+const spans = [
+  "lg:col-span-3",
+  "lg:col-span-3",
+  "lg:col-span-2",
+  "lg:col-span-2",
+  "sm:col-span-2 lg:col-span-2",
 ];
-
-const accentBorder: Record<string, string> = {
-  indigo: "hover:border-indigo-500/40",
-  violet: "hover:border-violet-500/40",
-  emerald: "hover:border-emerald-500/40",
-  orange: "hover:border-orange-500/40",
-  cyan: "hover:border-cyan-500/40",
-};
-
-const accentIcon: Record<string, string> = {
-  indigo: "text-indigo-400 bg-indigo-500/10",
-  violet: "text-violet-400 bg-violet-500/10",
-  emerald: "text-emerald-400 bg-emerald-500/10",
-  orange: "text-orange-400 bg-orange-500/10",
-  cyan: "text-cyan-400 bg-cyan-500/10",
-};
 ---
 
-<section id="services" class="py-16 sm:py-24 px-4 sm:px-6">
-  <div class="max-w-4xl mx-auto">
-    <p
-      class="text-xs font-semibold uppercase tracking-widest text-accent mb-3"
-    >
-      Servicios
-    </p>
-    <h2
-      class="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-balance text-fg mb-3 sm:mb-4"
-    >
-      ¿En qué puedo ayudarte?
-    </h2>
-    <p class="text-muted mb-8 sm:mb-12 text-sm sm:text-[15px] max-w-2xl text-pretty">
-      Cinco frentes en los que puedo entrar a tu proyecto, solo o integrado a tu
-      equipo.
-    </p>
+<section id="services" aria-labelledby="services-title" class="section-y">
+  <div class="shell">
+    <SectionHeading
+      id="services-title"
+      eyebrow="Servicios"
+      title="¿En qué puedo ayudarte?"
+      description="Cinco frentes en los que puedo entrar a tu proyecto, solo o integrado a tu equipo."
+    />
 
-    <!-- 1 col móvil → 2 col desde tablet. Si queda una card impar, ocupa el ancho. -->
-    <div
-      class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 sm:[&>*:last-child:nth-child(odd)]:col-span-2"
-    >
+    <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-6">
       {
-        services.map((service) => (
-          <div
-            data-anim="service-card"
-            data-spotlight
-            class={`group bg-fg/[.03] border border-line/10 rounded-2xl p-5 sm:p-6 transition-all duration-300 hover:-translate-y-1 ${accentBorder[service.accent]}`}
-          >
-            <div
-              class={`w-10 h-10 rounded-xl flex items-center justify-center mb-4 sm:mb-5 transition-transform duration-300 group-hover:scale-110 ${accentIcon[service.accent]}`}
-            >
-              <ion-icon name={service.icon} class="text-xl" />
-            </div>
-            <h3 class="text-base font-semibold text-fg mb-2 sm:mb-3">
-              {service.title}
-            </h3>
-            <p class="text-sm text-muted leading-relaxed mb-4 sm:mb-5">
-              {service.desc}
-            </p>
-            <div class="flex flex-wrap gap-1.5">
-              {service.tags.map((tag) => (
-                <span class="px-2 py-0.5 text-xs text-faint bg-fg/[.03] border border-line/[.08] rounded-md">
-                  {tag}
-                </span>
-              ))}
-            </div>
-          </div>
+        services.map((s, i) => (
+          <li data-reveal style={`--reveal-i:${i % 3}`} class={spans[i]}>
+            <article class="card card-lift group/svc flex h-full flex-col p-6 sm:p-7">
+              <span class="svc-icon flex size-11 items-center justify-center rounded-[0.875rem] bg-accent-fill/12 text-accent">
+                <Icon name={s.icon} class="size-[1.375rem]" />
+              </span>
+              <h3 class="mt-5 text-headline text-fg">{s.title}</h3>
+              <p class="mt-2 text-callout text-muted">{s.desc}</p>
+              <ul class="mt-auto flex flex-wrap gap-1.5 pt-6" aria-label="Herramientas">
+                {s.tags.map((t) => (
+                  <li class="rounded-chip bg-fg/[.05] px-2.5 py-1 text-caption font-medium text-muted">{t}</li>
+                ))}
+              </ul>
+            </article>
+          </li>
         ))
       }
-    </div>
+    </ul>
 
-    <div class="mt-7 sm:mt-8 text-center">
-      <a
-        href="#contact"
-        class="inline-flex items-center gap-2 text-sm text-muted hover:text-fg transition-colors duration-200"
-      >
-        Cuéntame qué necesitas →
-      </a>
+    <div data-reveal class="mt-10 flex justify-center">
+      <Button href="#contact" variant="secondary">
+        Cuéntame qué necesitas
+        <Icon name="arrow-right" class="size-4 transition-transform duration-200 group-hover/btn:translate-x-0.5" />
+      </Button>
     </div>
   </div>
 </section>
+
+<style>
+  .svc-icon {
+    transition: scale var(--dur-base) var(--ease-spring);
+  }
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    :global(.group\/svc:hover) .svc-icon {
+      scale: 1.08;
+    }
+  }
+</style>

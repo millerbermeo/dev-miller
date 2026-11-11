@@ -22,3 +22,6 @@ pnpm-debug.log*
 
 # vscode local settings
 .vscode/settings.json
+
+# capturas de Playwright MCP
+.playwright-mcp/

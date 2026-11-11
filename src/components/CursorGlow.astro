@@ -1,13 +1,9 @@
 ---
 // ─────────────────────────────────────────────────────────────
-// CURSOR GLOW — resplandor radial que sigue al mouse.
-// · Capa fixed a todo el viewport, pointer-events:none, z-index bajo
-//   (por encima del fondo decorativo -z-10, por debajo del contenido).
-// · El orbe se mueve con transform: translate3d() dentro de rAF.
-// · Compatible con View Transitions de Astro: se reinicializa en
-//   `astro:page-load` y limpia listeners en `astro:before-swap`.
-// · Tema claro y oscuro: color e intensidad se ajustan por `.dark`.
-// · Respeta prefers-reduced-motion (no se activa).
+// CURSOR GLOW — halo muy tenue que sigue al puntero.
+// · Solo con puntero fino (ratón/trackpad); nunca en táctil.
+// · Desactivado con reduced-motion o reduced-transparency.
+// · Se mueve con transform dentro de rAF (compositor, sin relayout).
 // ─────────────────────────────────────────────────────────────
 ---
 
@@ -19,115 +15,66 @@
   .cursor-glow-layer {
     position: fixed;
     inset: 0;
-    z-index: -5; /* sobre el fondo (-z-10), bajo el contenido */
+    z-index: -1;
     pointer-events: none;
     overflow: hidden;
-    contain: layout paint;
+    contain: strict;
+    display: none;
   }
-
+  @media (pointer: fine) and (prefers-reduced-motion: no-preference) and (prefers-reduced-transparency: no-preference) {
+    .cursor-glow-layer {
+      display: block;
+    }
+  }
   .cursor-glow-orb {
     position: absolute;
     top: 0;
     left: 0;
-    width: 600px;
-    height: 600px;
-    /* centro del círculo en el origen (0,0) para que translate = posición del cursor */
-    margin: -300px 0 0 -300px;
+    width: 520px;
+    height: 520px;
+    margin: -260px 0 0 -260px;
     border-radius: 9999px;
-    /* fuera de pantalla hasta el primer mousemove */
     transform: translate3d(-1000px, -1000px, 0);
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity 600ms var(--ease-out-soft);
     will-change: transform;
+    background: radial-gradient(circle, rgb(var(--accent-fill) / 0.1), transparent 70%);
   }
-
+  :global(html:not(.dark)) .cursor-glow-orb {
+    background: radial-gradient(circle, rgb(var(--accent-fill) / 0.06), transparent 70%);
+  }
   .cursor-glow-orb.is-active {
     opacity: 1;
-  }
-
-  /* 🌙 OSCURO — violeta/azul acorde a la paleta, `screen` para que brille */
-  :global(html.dark) .cursor-glow-orb {
-    background: radial-gradient(
-      circle,
-      rgba(124, 108, 255, 0.25),
-      rgba(124, 108, 255, 0) 70%
-    );
-    mix-blend-mode: screen;
-  }
-
-  /* ☀️ CLARO — mismo tono, menor alpha y `multiply` para no lavar el off-white */
-  :global(html:not(.dark)) .cursor-glow-orb {
-    background: radial-gradient(
-      circle,
-      rgba(109, 90, 255, 0.18),
-      rgba(109, 90, 255, 0) 70%
-    );
-    mix-blend-mode: multiply;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .cursor-glow-layer {
-      display: none;
-    }
   }
 </style>
 
 <script>
-  function initCursorGlow() {
-    const orb = document.getElementById("cursor-glow-orb");
-    if (!orb) return;
+  const orb = document.getElementById("cursor-glow-orb");
+  const enabled = window.matchMedia(
+    "(pointer: fine) and (prefers-reduced-motion: no-preference) and (prefers-reduced-transparency: no-preference)",
+  ).matches;
 
-    // Evita doble init (astro:page-load también dispara en la carga inicial
-    // cuando hay View Transitions).
-    if (orb.dataset.glowReady === "1") return;
-
-    const reduce = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
-    if (reduce) return;
-
-    orb.dataset.glowReady = "1";
-
-    let x = window.innerWidth / 2;
-    let y = window.innerHeight / 2;
+  if (orb && enabled) {
+    let x = 0;
+    let y = 0;
     let raf = 0;
-    let active = false;
 
     const render = () => {
       raf = 0;
       orb.style.transform = `translate3d(${x}px, ${y}px, 0)`;
     };
 
-    const onMove = (e: MouseEvent) => {
-      x = e.clientX;
-      y = e.clientY;
-      if (!active) {
-        active = true;
+    window.addEventListener(
+      "pointermove",
+      (e) => {
+        if (e.pointerType !== "mouse") return;
+        x = e.clientX;
+        y = e.clientY;
         orb.classList.add("is-active");
-      }
-      if (!raf) raf = requestAnimationFrame(render);
-    };
-
-    const onLeave = () => {
-      active = false;
-      orb.classList.remove("is-active");
-    };
-
-    window.addEventListener("mousemove", onMove, { passive: true });
-    document.addEventListener("mouseleave", onLeave);
-
-    // Limpieza antes de que Astro reemplace el DOM (View Transitions).
-    document.addEventListener(
-      "astro:before-swap",
-      () => {
-        window.removeEventListener("mousemove", onMove);
-        document.removeEventListener("mouseleave", onLeave);
-        if (raf) cancelAnimationFrame(raf);
+        if (!raf) raf = requestAnimationFrame(render);
       },
-      { once: true }
+      { passive: true },
     );
+    document.documentElement.addEventListener("pointerleave", () => orb.classList.remove("is-active"));
   }
-
-  initCursorGlow();
-  document.addEventListener("astro:page-load", initCursorGlow);
 </script>

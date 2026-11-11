@@ -1,4 +1,7 @@
 ---
+import SectionHeading from "./ui/SectionHeading.astro";
+import Icon from "./ui/Icon.astro";
+
 // Logros a nivel de rol. El detalle de cada proyecto vive en la sección Proyectos.
 const achievements = [
   "Desarrollo de plataformas SaaS y POS multi-tenant en producción, con hasta 60% menos tiempo de gestión operativa para los negocios que las adoptaron.",
@@ -9,78 +12,44 @@ const achievements = [
 ];
 ---
 
-<section id="experience" class="py-16 sm:py-24 px-4 sm:px-6">
-  <div class="max-w-4xl mx-auto">
-    <p
-      class="text-xs font-semibold uppercase tracking-widest text-accent mb-3"
-    >
-      Experiencia
-    </p>
-    <h2
-      class="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-balance text-fg mb-3 sm:mb-4"
-    >
-      Dónde he trabajado
-    </h2>
-    <p class="text-muted mb-8 sm:mb-12 text-sm sm:text-[15px] max-w-2xl text-pretty">
-      3 años construyendo software de negocio, de la arquitectura al despliegue.
-    </p>
+<section id="experience" aria-labelledby="experience-title" class="section-y">
+  <div class="shell">
+    <SectionHeading
+      id="experience-title"
+      eyebrow="Experiencia"
+      title="Dónde he trabajado"
+      description="3 años construyendo software de negocio, de la arquitectura al despliegue."
+    />
 
-    <div class="relative">
-      <!-- Timeline bar -->
-      <div
-        class="absolute left-0 top-3 bottom-8 w-px bg-linear-to-b from-accent/60 via-line/20 to-transparent hidden sm:block"
-      ></div>
+    <article data-reveal class="card grid gap-8 p-6 sm:p-10 lg:grid-cols-12 lg:gap-12 lg:p-12" aria-labelledby="role-title">
+      <!-- Rol -->
+      <header class="lg:col-span-4">
+        <span class="flex size-12 items-center justify-center rounded-2xl bg-accent-fill/12 text-accent">
+          <Icon name="briefcase" class="size-6" />
+        </span>
+        <h3 id="role-title" class="mt-5 text-title-2 text-fg">Desarrollador de Software</h3>
+        <p class="mt-1.5 text-headline font-medium text-fg/85">Desarrollo G</p>
+        <p class="mt-1 text-callout text-muted">Empresa de tecnología · Soluciones a medida</p>
+        <p class="mt-5 inline-flex items-center gap-2 rounded-full bg-success/10 px-3 py-1.5 text-footnote font-medium text-success">
+          <span class="size-1.5 rounded-full bg-success" aria-hidden="true"></span>
+          <time datetime="2023">2023</time> — Actualidad
+        </p>
+      </header>
 
-      <div class="sm:pl-8 relative">
-        <!-- Timeline dot -->
-        <div
-          class="hidden sm:block absolute -left-[4.5px] top-[14px] w-2.5 h-2.5 rounded-full bg-accent ring-4 ring-bg"
-        ></div>
-
-        <!-- Experience card -->
-        <div
-          data-anim="exp-card"
-          data-spotlight
-          class="bg-fg/[.03] border border-line/[.12] rounded-2xl p-5 sm:p-8"
-        >
-          <!-- Header -->
-          <div
-            class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between mb-6 sm:mb-8"
-          >
-            <div>
-              <h3 class="text-lg sm:text-xl font-semibold text-fg">
-                Desarrollador de Software
-              </h3>
-              <p class="text-accent font-medium mt-1">Desarrollo G</p>
-              <p class="text-xs text-faint mt-1.5">
-                Empresa de tecnología · Soluciones a medida
-              </p>
-            </div>
-            <span
-              class="inline-flex items-center gap-2 px-3 py-1.5 text-xs font-medium text-muted bg-fg/[.04] border border-line/10 rounded-full self-start sm:whitespace-nowrap"
-            >
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0"
-              ></span>
-              2023 — Actualidad
-            </span>
-          </div>
-
-          <!-- Logros -->
-          <ul class="space-y-3">
-            {
-              achievements.map((item) => (
-                <li class="flex gap-3 text-sm text-muted leading-relaxed">
-                  <ion-icon
-                    name="checkmark-circle-outline"
-                    class="text-accent text-lg shrink-0 mt-0.5"
-                  />
-                  <span>{item}</span>
-                </li>
-              ))
-            }
-          </ul>
-        </div>
+      <!-- Logros -->
+      <div class="lg:col-span-8 lg:border-l lg:pl-12">
+        <h4 class="text-footnote font-semibold text-muted">Logros principales</h4>
+        <ul class="mt-4 divide-y">
+          {
+            achievements.map((item) => (
+              <li class="flex gap-3.5 py-4 text-callout text-fg/90 first:pt-0 last:pb-0 sm:text-base">
+                <Icon name="check" class="mt-1 size-4 shrink-0 text-accent" />
+                <span>{item}</span>
+              </li>
+            ))
+          }
+        </ul>
       </div>
-    </div>
+    </article>
   </div>
 </section>

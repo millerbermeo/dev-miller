@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://millerbermeo.com/sitemap-index.xml

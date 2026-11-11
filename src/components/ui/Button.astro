@@ -1,0 +1,78 @@
+---
+/**
+ * Botón del sistema de diseño. Renderiza <a> si hay `href`, si no <button>.
+ *  · primary   → acción principal (relleno de acento, una por zona)
+ *  · secondary → acción alternativa (superficie con hairline)
+ *  · ghost     → acción terciaria (sin fondo hasta hover)
+ * Estados: hover, active (scale .97 al instante), focus-visible y disabled.
+ */
+import type { HTMLAttributes } from "astro/types";
+
+type Variant = "primary" | "secondary" | "ghost";
+type Size = "sm" | "md" | "lg" | "icon";
+
+interface Props extends Omit<HTMLAttributes<"a">, "class"> {
+  variant?: Variant;
+  size?: Size;
+  class?: string;
+  /** Abre en pestaña nueva y anuncia el cambio de contexto a lectores de pantalla. */
+  external?: boolean;
+  disabled?: boolean;
+  type?: "button" | "submit" | "reset";
+}
+
+const {
+  variant = "primary",
+  size = "md",
+  class: className,
+  external = false,
+  disabled = false,
+  href,
+  type = "button",
+  ...rest
+} = Astro.props;
+
+const base =
+  "press group/btn relative inline-flex select-none items-center justify-center gap-2 whitespace-nowrap rounded-full font-semibold " +
+  "disabled:pointer-events-none disabled:opacity-45 aria-disabled:pointer-events-none aria-disabled:opacity-45";
+
+const variants: Record<Variant, string> = {
+  primary:
+    "bg-accent-fill text-on-accent shadow-[0_1px_2px_rgb(0_0_0/.12),inset_0_1px_0_rgb(255_255_255/.16)] hover:bg-accent-fill-hover",
+  secondary:
+    "bg-surface text-fg shadow-[0_0_0_1px_rgb(var(--line)/calc(var(--line-alpha)*1.6)),0_1px_2px_rgb(0_0_0/.05)] hover:bg-surface-2",
+  ghost: "text-fg hover:bg-fg/[.06] active:bg-fg/[.09]",
+};
+
+const sizes: Record<Size, string> = {
+  sm: "h-9 px-4 text-footnote",
+  md: "h-11 px-5 text-callout",
+  lg: "h-12 px-6 text-callout sm:h-[3.25rem] sm:px-7 sm:text-base",
+  icon: "size-11 text-callout",
+};
+
+const classes = [base, variants[variant], sizes[size], className]
+  .filter(Boolean)
+  .join(" ");
+
+const externalAttrs = external
+  ? { target: "_blank", rel: "noopener noreferrer" }
+  : {};
+---
+
+{
+  href && !disabled ? (
+    <a href={href} class={classes} {...externalAttrs} {...rest}>
+      <slot />
+      {external && <span class="sr-only"> (se abre en una pestaña nueva)</span>}
+    </a>
+  ) : href ? (
+    <a role="link" aria-disabled="true" class={classes} {...rest}>
+      <slot />
+    </a>
+  ) : (
+    <button type={type} class={classes} disabled={disabled} {...(rest as any)}>
+      <slot />
+    </button>
+  )
+}

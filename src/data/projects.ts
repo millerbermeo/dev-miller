@@ -1,25 +1,27 @@
-export const projects = [
-  {
-    label: "Mobile · App de domicilios",
-    featured: true,
-    title: "App Móvil de Domicilios — Android en producción",
-    problem:
-      "Clientes y domiciliarios sin una app nativa para pedir, recibir y seguir domicilios en tiempo real desde el teléfono.",
-    solution:
-      "App Android con React Native + Expo: catálogo de comercios, carrito, checkout, seguimiento del pedido en vivo y notificaciones push. Build y publicación gestionadas con EAS.",
-    result:
-      "Publicada en Google Play en producción y en uso real por clientes y repartidores.",
-    stack: ["React Native", "Expo", "EAS", "TypeScript", "Google Play"],
-    // TODO(miller): agregar capturas reales en public/mobile-domicilios/
-    image: "mobile-domicilios/img-1.png",
-    // images: ["mobile-domicilios/img-1.png", "mobile-domicilios/img-2.png"],
-    appId: "com.devmiller.domicilios",
-    deploy:
-      "https://play.google.com/store/apps/details?id=com.devmiller.domicilios",
-    // github: "",
-    accent: "green",
-    copilots: ["Claude Code", "OpenCode"],
-  },
+export type ProjectAccent =
+  | "indigo" | "emerald" | "violet" | "orange" | "cyan" | "green" | "blue" | "amber";
+
+export type Copilot = "Claude Code" | "OpenCode" | "OpenClaw" | "Codex";
+
+export interface Project {
+  label: string;
+  featured?: boolean;
+  title: string;
+  problem: string;
+  solution: string;
+  result: string;
+  stack: string[];
+  /** Ruta relativa a src/assets/projects/. Si no existe se muestra un placeholder. */
+  image: string;
+  images?: string[];
+  appId?: string;
+  deploy?: string;
+  github?: string;
+  accent: ProjectAccent;
+  copilots: Copilot[];
+}
+
+export const projects: Project[] = [
   {
     label: "SaaS · POS y facturación",
     featured: true,
@@ -38,8 +40,44 @@ export const projects = [
     copilots: ["OpenCode", "Claude Code"],
   },
   {
-    label: "IA · Chatbot WhatsApp",
+    label: "SaaS · Cobranza y créditos",
     featured: true,
+    title: "Sistema de Cobranza y Gestión de Créditos",
+    problem:
+      "Prestamistas y empresas de crédito llevando solicitudes, contratos, abonos y cartera en mora de forma manual, sin visibilidad del saldo de cada cliente ni control de las fechas de corte.",
+    solution:
+      "Plataforma web con flujo completo del crédito: registro de clientes, solicitudes, aprobación guiada paso a paso (validación de documentos, tasa y plazo), contratos, abonos a interés o capital, retiros, cobranza y seguimiento de clientes en mora. Incluye dashboard con próximas fechas de corte, reportes de cartera, mora, intereses y abonos, usuarios con acceso por módulos y modo claro/oscuro.",
+    result:
+      "Control centralizado de la cartera: cada crédito con su saldo, intereses y fecha de corte, y trazabilidad desde la solicitud hasta el último abono.",
+    stack: ["React", "TypeScript", "Vite", "Tailwind CSS", "HeroUI", "TanStack Query", "Zustand", "Zod"],
+    image: "cobros/img-1.png",
+    deploy: "https://frontend-cobros.vercel.app/auth/login",
+    accent: "indigo",
+    copilots: ["Claude Code", "OpenCode"],
+  },
+  {
+    label: "Mobile · App de domicilios",
+    featured: true,
+    title: "App Móvil de Domicilios — Android en producción",
+    problem:
+      "Clientes y domiciliarios sin una app nativa para pedir, recibir y seguir domicilios en tiempo real desde el teléfono.",
+    solution:
+      "App Android con React Native + Expo: catálogo de comercios, carrito, checkout, seguimiento del pedido en vivo y notificaciones push. Build y publicación gestionadas con EAS.",
+    result:
+      "Publicada en Google Play en producción y en uso real por clientes y repartidores.",
+    stack: ["React Native", "Expo", "EAS", "TypeScript", "Google Play"],
+    // TODO(miller): agregar capturas reales en src/assets/projects/mobile-domicilios/
+    image: "mobile-domicilios/img-1.png",
+    // images: ["mobile-domicilios/img-1.png", "mobile-domicilios/img-2.png"],
+    appId: "com.devmiller.domicilios",
+    deploy:
+      "https://play.google.com/store/apps/details?id=com.devmiller.domicilios",
+    // github: "",
+    accent: "green",
+    copilots: ["Claude Code", "OpenCode"],
+  },
+  {
+    label: "IA · Chatbot WhatsApp",
     title: "Chatbot Inteligente con WhatsApp API + IA",
     problem:
       "Empresas perdiendo clientes potenciales por no poder atender consultas fuera de horario laboral.",
@@ -72,8 +110,26 @@ export const projects = [
     copilots: ["OpenCode", "Claude Code", "OpenClaw", "Codex"],
   },
   {
-    label: "Marketplace · Domicilios locales",
+    label: "IA · Agente de desarrollo",
     featured: true,
+    title: "Odesk Agent — Agente de IA para Gestionar y Ejecutar Desarrollo",
+    problem:
+      "Coordinar tareas, repositorios, pruebas en navegador y dispositivos móviles, y credenciales desde herramientas separadas, sin que un agente de IA tenga contexto del proyecto ni reglas claras de trabajo.",
+    solution:
+      "Agente de IA conectado por MCP a un tablero de tareas con criterios de aceptación, Git y GitHub (ramas, commits, PRs, CI), automatización de navegador y de dispositivos Android, y gestión de credenciales. Orquesta subagentes especializados (revisión de código, QA, seguridad, arquitectura, UI/UX) y skills propias del proyecto.",
+    result:
+      "Flujo de trabajo asistido de punta a punta: la tarea se planifica, se implementa, se verifica y se documenta desde un mismo agente, con subagentes y skills que siguen las convenciones de cada proyecto.",
+    stack: ["Agentes IA", "Subagentes", "Skills", "MCP", "Claude Code", "TypeScript", "Node.js", "Git", "GitHub"],
+    // TODO(miller): agregar capturas reales en src/assets/projects/odesk-agent/
+    image: "odesk-agent/img-1.png",
+    // images: ["odesk-agent/img-1.png", "odesk-agent/img-2.png"],
+    // github: "",
+    // deploy: "",
+    accent: "violet",
+    copilots: ["Claude Code", "OpenCode", "Codex"],
+  },
+  {
+    label: "Marketplace · Domicilios locales",
     title: "Marketplace de Domicilios Multi-Comercio para Pitalito, Huila",
     problem:
       "Comercios locales (restaurantes, tiendas, farmacias, licoreras) sin un canal digital unificado para vender y coordinar domicilios, obligando a los clientes a contactar cada negocio por separado.",
@@ -91,7 +147,6 @@ export const projects = [
   },
   {
     label: "Fullstack · Ventas y créditos moto",
-    featured: true,
     title: "Sistema de Ventas, Créditos y Trazabilidad para Concesionario de Motos",
     problem:
       "Agencia de venta de motocicletas gestionando cotizaciones y créditos (contado, crédito interno o de terceros) de forma manual, sin trazabilidad del proceso desde la cotización hasta la entrega del vehículo, ni control centralizado de aprobación de créditos.",
@@ -114,38 +169,6 @@ export const projects = [
     deploy: "https://tuclick.vozipcolombia.net.co/login",
     accent: "blue",
     copilots: ["Claude Code", "OpenCode"],
-  },
-  {
-    label: "Fullstack · Venta de vehículos",
-    title: "Sistema de Gestión y Venta de Vehículos",
-    problem:
-      "Concesionarios administrando su inventario vehicular de manera manual, sin visibilidad en tiempo real ni seguimiento de clientes.",
-    solution:
-      "Plataforma web fullstack con módulos de inventario, seguimiento de prospectos, fichas técnicas y panel administrativo con métricas de ventas.",
-    result:
-      "Digitalización completa del proceso de venta, desde la captura del lead hasta el cierre del negocio.",
-    stack: ["React", "Node.js", "MySQL", "Next.js"],
-    image: "img3.png",
-    github: "https://github.com/millerbermeo/SistemaFrontend",
-    deploy: "https://sistema-vehiculos.vercel.app/",
-    accent: "violet",
-    copilots: ["OpenCode", "Claude Code", "OpenClaw"],
-  },
-  {
-    label: "IA · Domicilios automatizados",
-    title: "Sistema de Domicilios con Automatización IA",
-    problem:
-      "Proceso de asignación de pedidos manual, lento y con alta tasa de errores en la distribución.",
-    solution:
-      "Plataforma de delivery con asignación inteligente de repartidores, seguimiento en tiempo real, notificaciones automáticas y rutas optimizadas con IA.",
-    result:
-      "Reducción del tiempo de asignación de pedidos de minutos a segundos, con trazabilidad completa.",
-    stack: ["Python", "FastAPI", "React", "PostgreSQL", "Claude API"],
-    image: "movimientos.png",
-    github: "https://github.com/millerbermeo/delivery-ia",
-    deploy: "https://delivery-platform.vercel.app/",
-    accent: "orange",
-    copilots: ["Claude Code", "Codex", "OpenCode"],
   },
   {
     label: "Landing · Servicios contables",
@@ -172,12 +195,12 @@ export const projects = [
     copilots: ["OpenCode"],
   },
   {
-    label: "Ecommerce · Ropa y calzado",
-    title: "Plataforma Ecommerce Profesional para Venta de Ropa y Zapatos",
+    label: "Ecommerce · Productos tecnológicos",
+    title: "Plataforma Ecommerce Profesional para Venta de Productos Tecnológicos",
     problem:
-      "Negocios de ropa y calzado sin presencia digital sólida, con dificultad para gestionar productos, variantes, inventario y pedidos de forma ordenada y eficiente.",
+      "Negocios de tecnología (computadores, celulares, accesorios) sin presencia digital sólida, con dificultad para gestionar productos, especificaciones, inventario y pedidos de forma ordenada y eficiente.",
     solution:
-      "Ecommerce completo con catálogo de productos, variantes (tallas y colores), carrito de compras, checkout, gestión de pedidos, panel administrativo para control de productos, stock, categorías y ofertas. Incluye sistema de descuentos, cupones y gestión básica de clientes.",
+      "Ecommerce completo con catálogo de productos, variantes y especificaciones técnicas, carrito de compras, checkout, gestión de pedidos, panel administrativo para control de productos, stock, categorías y ofertas. Incluye sistema de descuentos, cupones y gestión básica de clientes.",
     result:
       "Digitalización del negocio con aumento de ventas online, automatización del proceso de compra y control centralizado del inventario, pedidos y productos desde un panel admin intuitivo.",
     stack: ["Astro", "Tailwind CSS", "TypeScript", "Node.js", "PostgreSQL", "Prisma", "Stripe"],

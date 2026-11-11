@@ -1,56 +1,55 @@
 ---
+import Icon from "./ui/Icon.astro";
+import Button from "./ui/Button.astro";
+
 const year = new Date().getFullYear();
+
+const links = [
+  { label: "Sobre mí", href: "#about" },
+  { label: "Proyectos", href: "#projects" },
+  { label: "Experiencia", href: "#experience" },
+  { label: "Servicios", href: "#services" },
+  { label: "Contacto", href: "#contact" },
+];
 ---
 
-<footer class="py-8 px-4 sm:px-6 border-t border-line/10">
-  <div class="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
-    <p class="text-sm text-muted">
-      © {year} Miller Bermeo · Desarrollador Fullstack & IA
-    </p>
-    <div class="flex items-center gap-5">
-      <a
-        href="https://github.com/millerbermeo"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="text-muted hover:text-fg transition-colors duration-200"
-        aria-label="GitHub"
-      >
-        <ion-icon name="logo-github" class="text-lg" aria-hidden="true"></ion-icon>
-      </a>
-      <a
-        href="https://www.linkedin.com/in/miller-rivera/"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="text-muted hover:text-fg transition-colors duration-200"
-        aria-label="LinkedIn"
-      >
-        <ion-icon name="logo-linkedin" class="text-lg" aria-hidden="true"></ion-icon>
-      </a>
-      <a
-        href="mailto:devmiller25@gmail.com"
-        class="text-muted hover:text-fg transition-colors duration-200"
-        aria-label="Email"
-      >
-        <ion-icon name="mail-outline" class="text-lg" aria-hidden="true"></ion-icon>
-      </a>
+<footer class="border-t">
+  <div class="shell flex flex-col gap-8 py-10 sm:py-12 md:flex-row md:items-center md:justify-between">
+    <div>
+      <p class="text-headline font-semibold text-fg">Miller Bermeo</p>
+      <p class="mt-1 text-footnote text-muted">
+        © {year} Miller Bermeo · Desarrollador Fullstack &amp; IA
+      </p>
+    </div>
 
-      <!-- Separator -->
-      <span class="w-px h-4 bg-line/[.12]" aria-hidden="true"></span>
+    <nav aria-label="Pie de página">
+      <ul class="flex flex-wrap gap-x-5 gap-y-2">
+        {
+          links.map((l) => (
+            <li>
+              <a href={l.href} class="rounded-sm text-footnote text-muted transition-colors hover:text-fg">
+                {l.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
 
-      <!-- Back to top -->
-      <button
-        id="back-to-top"
-        aria-label="Volver al inicio"
-        class="text-muted hover:text-fg transition-colors duration-200"
-      >
-        <ion-icon name="arrow-up-outline" class="text-lg" aria-hidden="true"></ion-icon>
-      </button>
+    <div class="flex items-center gap-1">
+      <Button href="https://github.com/millerbermeo" variant="ghost" size="icon" external aria-label="GitHub de Miller Bermeo" class="text-muted hover:text-fg">
+        <Icon name="github" class="size-[1.125rem]" />
+      </Button>
+      <Button href="https://www.linkedin.com/in/miller-rivera/" variant="ghost" size="icon" external aria-label="LinkedIn de Miller Bermeo" class="text-muted hover:text-fg">
+        <Icon name="linkedin" class="size-[1.125rem]" />
+      </Button>
+      <Button href="mailto:devmiller25@gmail.com" variant="ghost" size="icon" aria-label="Enviar correo a Miller Bermeo" class="text-muted hover:text-fg">
+        <Icon name="mail" class="size-[1.125rem]" />
+      </Button>
+      <span class="mx-1 h-5 w-px bg-fg/10" aria-hidden="true"></span>
+      <Button href="#home" variant="secondary" size="icon" aria-label="Volver arriba">
+        <Icon name="arrow-up" class="size-[1.125rem]" />
+      </Button>
     </div>
   </div>
 </footer>
-
-<script>
-  document.getElementById("back-to-top")?.addEventListener("click", () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  });
-</script>

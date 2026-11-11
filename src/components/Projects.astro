@@ -1,84 +1,110 @@
 ---
 import { projects } from "../data/projects";
 import ProjectCard from "./ProjectCard.astro";
+import ProjectCompact from "./ProjectCompact.astro";
+import SectionHeading from "./ui/SectionHeading.astro";
+import Button from "./ui/Button.astro";
+import Icon from "./ui/Icon.astro";
 
-const featured = projects.filter((p: any) => p.featured);
-const rest = projects.filter((p: any) => !p.featured);
+const featured = projects.filter((p) => p.featured);
+const rest = projects.filter((p) => !p.featured);
+const [lead, ...others] = featured;
 ---
 
-<section id="projects" class="py-16 sm:py-24 px-4 sm:px-6">
-  <div class="max-w-6xl mx-auto">
-    <p class="text-xs font-semibold uppercase tracking-widest text-accent mb-3">
-      Proyectos
-    </p>
-    <h2
-      class="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-balance text-fg mb-3 sm:mb-4"
-    >
-      Trabajo destacado
-    </h2>
-    <p class="text-muted mb-8 sm:mb-12 text-sm sm:text-[15px] max-w-2xl text-pretty">
-      {featured.length} casos seleccionados. Cada uno con su problema, solución y
-      resultado.
-    </p>
+<section id="projects" aria-labelledby="projects-title" class="section-y">
+  <div class="shell">
+    <SectionHeading
+      id="projects-title"
+      eyebrow="Proyectos"
+      title="Trabajo destacado"
+      description={`${featured.length} casos seleccionados. Cada uno con su problema, solución y resultado.`}
+    />
 
-    <div
-      class="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6 items-stretch"
-    >
-      {featured.map((project) => <ProjectCard project={project} />)}
+    <div class="grid grid-cols-1 gap-5 sm:gap-6 lg:grid-cols-2">
+      {
+        lead && (
+          <div data-reveal class="lg:col-span-2">
+            <ProjectCard project={lead} wide eager />
+          </div>
+        )
+      }
+      {
+        others.map((project, i) => {
+          // Si el total es impar, el último ocupa las dos columnas para no dejar un hueco.
+          const orphan = others.length % 2 === 1 && i === others.length - 1;
+          return (
+            <div data-reveal style={`--reveal-i:${i % 2}`} class:list={[orphan && "lg:col-span-2"]}>
+              <ProjectCard project={project} wide={orphan} />
+            </div>
+          );
+        })
+      }
     </div>
 
     {
       rest.length > 0 && (
-        <details class="group mt-6">
-          <summary class="flex cursor-pointer list-none marker:hidden [&::-webkit-details-marker]:hidden items-center justify-center gap-2 px-5 py-2.5 text-sm font-medium text-muted hover:text-fg bg-fg/[.03] hover:bg-fg/[.06] border border-line/[.12] rounded-lg transition-all duration-200">
-            <ion-icon name="chevron-down-outline" class="text-base transition-transform duration-200 group-open:rotate-180" />
-            <span class="group-open:hidden">Ver {rest.length} proyectos más</span>
-            <span class="hidden group-open:inline">Ver menos</span>
-          </summary>
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6 items-stretch mt-6">
-            {rest.map((project) => (
-              <ProjectCard project={project} animate={false} />
-            ))}
+        <div class="mt-14 sm:mt-16">
+          <h3 id="more-projects-title" class="text-title-2 text-fg">
+            Más proyectos
+          </h3>
+          <p class="mt-1 text-callout text-muted">Otros trabajos, en resumen.</p>
+          <div
+            role="list"
+            aria-labelledby="more-projects-title"
+            class="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-6"
+          >
+            {rest.map((project, i) => {
+              // Con 5: tres arriba (2 col c/u) y dos abajo (3 col c/u); sin huecos.
+              const span =
+                rest.length % 3 === 2 && i >= rest.length - 2
+                  ? "lg:col-span-3"
+                  : rest.length % 3 === 1 && i === rest.length - 1
+                    ? "lg:col-span-6"
+                    : "lg:col-span-2";
+              return (
+                <div role="listitem" data-reveal style={`--reveal-i:${i % 3}`} class:list={[span]}>
+                  <ProjectCompact project={project} />
+                </div>
+              );
+            })}
           </div>
-        </details>
+        </div>
       )
     }
 
-    <!-- GitHub CTA -->
-    <div class="mt-7 sm:mt-8 text-center">
-      <a
-        href="https://github.com/millerbermeo"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium text-muted hover:text-fg bg-fg/[.03] hover:bg-fg/[.06] border border-line/[.12] rounded-lg transition-all duration-200"
-      >
-        <ion-icon name="logo-github" class="text-base"></ion-icon>
+    <div class="mt-10 flex justify-center">
+      <Button href="https://github.com/millerbermeo" variant="ghost" external class="text-muted hover:text-fg">
+        <Icon name="github" class="size-4" />
         Ver más en GitHub
-      </a>
+        <Icon name="arrow-up-right" class="size-3.5" />
+      </Button>
     </div>
   </div>
 </section>
 
 <script>
+  // Selector de capturas: cambia la imagen al instante cuando ya está decodificada.
   document.querySelectorAll<HTMLButtonElement>("[data-thumb]").forEach((btn) => {
-    btn.addEventListener("click", () => {
+    btn.addEventListener("click", async () => {
       const card = btn.closest("[data-project-card]");
-      const mainImage = card?.querySelector<HTMLImageElement>("[data-main-image]");
-      const src = btn.dataset.thumb;
-      if (!mainImage || !src) return;
+      const img = card?.querySelector<HTMLImageElement>("[data-main-image]");
+      const { src, srcset } = btn.dataset;
+      if (!card || !img || !src || btn.getAttribute("aria-pressed") === "true") return;
 
-      mainImage.style.opacity = "0";
-      window.setTimeout(() => {
-        mainImage.src = src;
-        mainImage.style.opacity = "";
-      }, 150);
+      card.querySelectorAll("[data-thumb]").forEach((t) => t.setAttribute("aria-pressed", "false"));
+      btn.setAttribute("aria-pressed", "true");
 
-      card?.querySelectorAll("[data-thumb]").forEach((t) => {
-        t.classList.remove("border-accent", "ring-1", "ring-accent");
-        t.classList.add("border-line/10");
-      });
-      btn.classList.remove("border-line/10");
-      btn.classList.add("border-accent", "ring-1", "ring-accent");
+      img.setAttribute("data-swapping", "");
+      const next = new Image();
+      next.sizes = img.sizes;
+      if (srcset) next.srcset = srcset;
+      next.src = src;
+      try {
+        await next.decode();
+      } catch {}
+      if (srcset) img.srcset = srcset;
+      img.src = src;
+      img.removeAttribute("data-swapping");
     });
   });
 </script>

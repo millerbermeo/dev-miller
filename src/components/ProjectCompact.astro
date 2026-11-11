@@ -1,0 +1,117 @@
+---
+import type { Project } from "../data/projects";
+import Icon from "./ui/Icon.astro";
+import Button from "./ui/Button.astro";
+import { findProjectImage, responsiveImage } from "../lib/projectImages";
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+
+// Mismo tinte de placeholder que ProjectCard cuando no hay captura.
+const tintMap: Record<Project["accent"], string> = {
+  indigo: "99 102 241",
+  emerald: "16 185 129",
+  violet: "139 92 246",
+  orange: "249 115 22",
+  cyan: "6 182 212",
+  green: "34 197 94",
+  blue: "59 130 246",
+  amber: "245 158 11",
+};
+
+const shortTitle = project.title.split(" — ")[0];
+const meta = findProjectImage(project.images?.[0] ?? project.image);
+const shot = meta ? await responsiveImage(meta) : undefined;
+const id = `compact-${project.image.replace(/\W+/g, "-")}`;
+const MAX_CHIPS = 5;
+const chips = project.stack.slice(0, MAX_CHIPS);
+const extra = project.stack.length - chips.length;
+---
+
+<article
+  aria-labelledby={id}
+  class="card card-lift group/card flex h-full flex-col overflow-hidden"
+  style={`--tint:${tintMap[project.accent]}`}
+>
+  <div class="p-2 pb-0">
+    <div class="relative aspect-[2/1] overflow-hidden rounded-[calc(var(--radius-card)-0.5rem)] bg-surface-2">
+      {
+        shot ? (
+          <img
+            src={shot.src}
+            srcset={shot.srcset}
+            sizes="(min-width: 1024px) 22rem, (min-width: 640px) 45vw, 100vw"
+            width={shot.width}
+            height={shot.height}
+            alt={`Captura de ${shortTitle}`}
+            loading="lazy"
+            decoding="async"
+            class="thumb-image size-full object-cover object-top"
+          />
+        ) : (
+          <div class="placeholder flex size-full items-center justify-center" aria-hidden="true">
+            <span class="text-[3.5rem] leading-none font-bold tracking-tighter text-[rgb(var(--tint)/.45)] select-none">
+              {shortTitle.charAt(0)}
+            </span>
+          </div>
+        )
+      }
+    </div>
+  </div>
+
+  <div class="flex flex-1 flex-col p-5">
+    <p class="text-footnote font-semibold text-accent">{project.label}</p>
+    <h4 id={id} class="mt-1.5 text-headline text-fg">{shortTitle}</h4>
+    <p class="mt-2 line-clamp-3 text-callout text-muted">{project.solution}</p>
+
+    <ul class="mt-4 flex flex-wrap gap-1.5" aria-label="Tecnologías">
+      {
+        chips.map((t) => (
+          <li class="rounded-chip bg-fg/[.05] px-2.5 py-1 text-caption font-medium text-muted">{t}</li>
+        ))
+      }
+      {extra > 0 && <li class="rounded-chip px-1.5 py-1 text-caption text-faint">+{extra}</li>}
+    </ul>
+
+    {
+      (project.deploy || project.github) && (
+        <div class="mt-auto flex flex-wrap gap-2 pt-5">
+          {project.deploy && (
+            <Button href={project.deploy} variant="secondary" size="sm" external>
+              <Icon name="arrow-up-right" class="size-3.5" />
+              Ver demo
+              <span class="sr-only">de {shortTitle}</span>
+            </Button>
+          )}
+          {project.github && (
+            <Button href={project.github} variant="ghost" size="sm" external class="text-muted hover:text-fg">
+              <Icon name="github" class="size-3.5" />
+              Código
+              <span class="sr-only">de {shortTitle}</span>
+            </Button>
+          )}
+        </div>
+      )
+    }
+  </div>
+</article>
+
+<style>
+  .placeholder {
+    background:
+      radial-gradient(80% 90% at 30% 20%, rgb(var(--tint) / 0.22), transparent 70%),
+      radial-gradient(70% 80% at 85% 90%, rgb(var(--tint) / 0.14), transparent 70%),
+      rgb(var(--surface-2));
+  }
+  .thumb-image {
+    transition: scale 700ms var(--ease-spring);
+  }
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .group\/card:hover .thumb-image {
+      scale: 1.03;
+    }
+  }
+</style>

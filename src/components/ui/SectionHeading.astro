@@ -1,0 +1,39 @@
+---
+/**
+ * Encabezado de sección: eyebrow + título (h2) + descripción opcional.
+ * El `id` del h2 permite a la <section> usar aria-labelledby.
+ */
+interface Props {
+  id: string;
+  eyebrow: string;
+  title: string;
+  description?: string;
+  align?: "start" | "center";
+  class?: string;
+}
+
+const { id, eyebrow, title, description, align = "start", class: className } = Astro.props;
+const centered = align === "center";
+---
+
+<header
+  data-reveal
+  class:list={[
+    "mb-10 max-w-3xl sm:mb-14",
+    centered && "mx-auto text-center",
+    className,
+  ]}
+>
+  <p class="eyebrow mb-3">{eyebrow}</p>
+  <h2 id={id} class="text-title-1 text-fg">
+    <Fragment set:html={title} />
+  </h2>
+  {
+    description && (
+      <p class:list={["mt-4 max-w-2xl text-lead text-muted", centered && "mx-auto"]}>
+        {description}
+      </p>
+    )
+  }
+  <slot />
+</header>

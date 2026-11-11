@@ -1,105 +1,63 @@
 ---
+import SectionHeading from "./ui/SectionHeading.astro";
+
+const stats = [
+  { value: 4, suffix: "+", label: "Años de experiencia" },
+  { value: 3, suffix: "+", label: "Años en producción" },
+  { value: 18, suffix: "+", label: "Proyectos entregados" },
+];
 ---
 
-<section id="about" class="py-16 sm:py-24 px-4 sm:px-6">
-  <div class="max-w-4xl mx-auto">
-    <div class="flex flex-col lg:flex-row gap-8 lg:gap-14 items-start">
-      <!-- Photo -->
-      <div class="shrink-0">
-        <div class="relative">
-          <div
-            class="absolute -inset-2 bg-linear-to-br from-accent/25 to-accent-3/15 rounded-3xl blur-xl"
-          >
-          </div>
-          <img
-            src="miller.jpeg"
-            alt="Miller Bermeo - Desarrollador Fullstack"
-            width="176"
-            height="176"
-            loading="lazy"
-            decoding="async"
-            class="relative w-32 h-32 sm:w-40 sm:h-40 lg:w-44 lg:h-44 rounded-2xl object-cover ring-1 ring-line/[.12]"
-          />
-        </div>
-      </div>
-
-      <!-- Content -->
-      <div class="flex-1 min-w-0">
-        <p
-          class="text-xs font-semibold uppercase tracking-widest text-accent mb-3"
-        >
-          Sobre mí
-        </p>
-        <h2
-          class="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-balance text-fg mb-5 sm:mb-6 leading-tight"
-        >
-          Desarrollador enfocado en impacto real, no solo en código
-        </h2>
-
-        <div class="space-y-4 text-muted leading-relaxed text-sm sm:text-[15px]">
+<section id="about" aria-labelledby="about-title" class="section-y">
+  <div class="shell">
+    <div class="grid gap-12 lg:grid-cols-12 lg:gap-16">
+      <div class="lg:col-span-7">
+        <SectionHeading
+          id="about-title"
+          eyebrow="Sobre mí"
+          title="Desarrollador enfocado en impacto real, no solo en código"
+          class="mb-8! sm:mb-10!"
+        />
+        <div data-reveal class="max-w-[62ch] space-y-5 text-lead text-muted">
           <p>
-            En
-            <span class="text-fg/80 font-medium">Desarrollo G</span> construyo
+            En <strong class="font-semibold text-fg">Desarrollo G</strong> construyo
             sistemas críticos de negocio: plataformas SaaS, puntos de venta y
             soluciones con IA integrada. Antes, años de proyectos propios
             afinando el oficio.
           </p>
           <p>
-            Me especializo en
-            <span class="text-fg/80 font-medium"
-              >backend y desarrollo fullstack</span
-            >, con foco en automatización con IA, integración de APIs,
-            arquitecturas orientadas a operaciones y apps móviles con React
-            Native.
+            Me especializo en <strong class="font-semibold text-fg">backend y desarrollo fullstack</strong>,
+            con foco en automatización con IA, integración de APIs,
+            arquitecturas orientadas a operaciones y apps móviles con React Native.
           </p>
           <p>
             Entiendo el negocio detrás de cada solución: identifico el problema,
             diseño la arquitectura y entrego resultados.
           </p>
         </div>
-
-        <!-- Stats -->
-        <div
-          class="grid grid-cols-3 gap-4 sm:gap-6 mt-8 sm:mt-10 pt-6 sm:pt-8 border-t border-line/10"
-        >
-          <div>
-            <p
-              class="font-display text-3xl sm:text-4xl font-bold text-fg tabular-nums"
-              data-count="4"
-              data-suffix="+"
-            >
-              4+
-            </p>
-            <p class="text-xs text-muted mt-1 leading-snug">
-              Años de experiencia
-            </p>
-          </div>
-          <div>
-            <p
-              class="font-display text-3xl sm:text-4xl font-bold text-fg tabular-nums"
-              data-count="3"
-              data-suffix="+"
-            >
-              3+
-            </p>
-            <p class="text-xs text-muted mt-1 leading-snug">
-              Años en producción
-            </p>
-          </div>
-          <div>
-            <p
-              class="font-display text-3xl sm:text-4xl font-bold text-fg tabular-nums"
-              data-count="18"
-              data-suffix="+"
-            >
-              18+
-            </p>
-            <p class="text-xs text-muted mt-1 leading-snug">
-              Proyectos entregados
-            </p>
-          </div>
-        </div>
       </div>
+
+      <!-- Cifras: tiles con count-up (tabular-nums para que no salten) -->
+      <dl class="grid grid-cols-3 gap-3 self-end sm:gap-4 lg:col-span-5 lg:grid-cols-1">
+        {
+          stats.map((s, i) => (
+            <div
+              data-reveal
+              style={`--reveal-i:${i}`}
+              class="card flex flex-col-reverse justify-end gap-1 p-4 sm:p-6 lg:flex-row-reverse lg:items-baseline lg:justify-between lg:p-7"
+            >
+              <dt class="text-footnote leading-snug text-muted sm:text-callout">{s.label}</dt>
+              <dd
+                class="text-title-1 text-fg tabular-nums"
+                data-count={s.value}
+                data-suffix={s.suffix}
+              >
+                {s.value}{s.suffix}
+              </dd>
+            </div>
+          ))
+        }
+      </dl>
     </div>
   </div>
 </section>
