@@ -15,10 +15,10 @@ interface Props {
 }
 
 const {
-  title = "Miller Bermeo — Desarrollador Fullstack & IA",
+  title = "Miller Rivera — Desarrollador Fullstack & IA",
   description = "Desarrollador Fullstack con 4 años de experiencia (3 en producción): sistemas POS, plataformas SaaS, apps móviles con React Native, chatbots con IA y automatizaciones de negocio.",
   image = "/og-image.png",
-  imageAlt = "Miller Bermeo — Desarrollador Fullstack & IA",
+  imageAlt = "Miller Rivera — Desarrollador Fullstack & IA",
 } = Astro.props;
 
 const site = Astro.site ?? new URL("https://millerbermeo.com");
@@ -32,12 +32,11 @@ const jsonLd = {
     {
       "@type": "Person",
       "@id": `${site.origin}/#person`,
-      name: "Miller Bermeo",
+      name: "Miller Rivera",
       jobTitle: "Desarrollador Fullstack & IA",
       url: site.origin,
       email: "mailto:devmiller25@gmail.com",
       image: new URL("/apple-touch-icon.png", site).href,
-      worksFor: { "@type": "Organization", name: "Desarrollo G" },
       knowsAbout: [
         "TypeScript", "JavaScript", "SQL", "Node.js", "NestJS", "Python",
         "FastAPI", "React", "Next.js", "Bootstrap", "shadcn/ui", "HeroUI", "DaisyUI", "React Native", "Expo", "PostgreSQL",
@@ -53,7 +52,7 @@ const jsonLd = {
       "@type": "WebSite",
       "@id": `${site.origin}/#website`,
       url: site.origin,
-      name: "Miller Bermeo — Portafolio",
+      name: "Miller Rivera — Portafolio",
       inLanguage: "es",
       publisher: { "@id": `${site.origin}/#person` },
     },
@@ -68,14 +67,14 @@ const jsonLd = {
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="author" content="Miller Bermeo" />
+    <meta name="author" content="Miller Rivera" />
     <meta name="robots" content="index, follow, max-image-preview:large" />
     <link rel="canonical" href={canonical} />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="es_CO" />
-    <meta property="og:site_name" content="Miller Bermeo" />
+    <meta property="og:site_name" content="Miller Rivera" />
     <meta property="og:url" content={canonical} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
