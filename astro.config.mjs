@@ -4,4 +4,5 @@ import { defineConfig } from 'astro/config';
 // Tailwind 3 se integra vía PostCSS (postcss.config.mjs), no como integración de Astro.
 export default defineConfig({
   site: 'https://millerbermeo.dev',
+  server: { port: 4324 },
 });
