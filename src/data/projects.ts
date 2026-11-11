@@ -195,6 +195,7 @@ export const projects: Project[] = [
   },
   {
     label: "Ecommerce · Productos tecnológicos",
+    featured: true,
     title: "Plataforma Ecommerce Profesional para Venta de Productos Tecnológicos",
     problem:
       "Negocios de tecnología (computadores, celulares, accesorios) sin presencia digital sólida, con dificultad para gestionar productos, especificaciones, inventario y pedidos de forma ordenada y eficiente.",
@@ -203,7 +204,8 @@ export const projects: Project[] = [
     result:
       "Digitalización del negocio con aumento de ventas online, automatización del proceso de compra y control centralizado del inventario, pedidos y productos desde un panel admin intuitivo.",
     stack: ["Astro", "Tailwind CSS", "TypeScript", "Node.js", "PostgreSQL", "Prisma", "Stripe"],
-    image: "ecommerce.png",
+    image: "ecommerce-tech/img-1.png",
+    images: ["ecommerce-tech/img-1.png", "ecommerce-tech/img-2.png", "ecommerce-tech/img-3.png", "ecommerce-tech/img-4.png", "ecommerce-tech/img-5.png"],
     github: "https://github.com/millerbermeo/ecommerce-tienda",
     deploy: "https://tienda-ropa.vercel.app/",
     accent: "violet",
