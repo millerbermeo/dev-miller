@@ -52,6 +52,8 @@ const shots: (ResponsiveImage & { thumb: string })[] = await Promise.all(
   metas.map(async (m) => ({ ...(await responsiveImage(m)), thumb: await thumbnail(m) })),
 );
 const main = shots[0];
+// Capturas verticales (apps móviles): se muestran completas sobre fondo tintado, sin recortar.
+const portrait = !!main && main.height > main.width;
 const sizes = wide
   ? "(min-width: 1024px) 36rem, 100vw"
   : "(min-width: 1024px) 34rem, (min-width: 640px) 90vw, 100vw";
@@ -71,8 +73,10 @@ const sizes = wide
     <div
       class:list={[
         "relative overflow-hidden rounded-[calc(var(--radius-card)-0.5rem)] bg-surface-2",
-        wide ? "aspect-[4/3] lg:aspect-auto lg:h-full lg:min-h-[26rem]" : "aspect-[2/1]",
-        wide && main && "wide-shot placeholder",
+        portrait
+          ? "portrait-shot placeholder h-[28rem] sm:h-[32rem]"
+          : wide ? "aspect-[4/3] lg:aspect-auto lg:h-full lg:min-h-[26rem]" : "aspect-[2/1]",
+        wide && main && !portrait && "wide-shot placeholder",
       ]}
     >
       {
@@ -87,7 +91,7 @@ const sizes = wide
             alt={`Captura de ${shortTitle}`}
             loading={eager ? "eager" : "lazy"}
             decoding="async"
-            class="main-image size-full object-cover object-top"
+            class:list={["main-image size-full", portrait ? "object-contain" : "object-cover object-top"]}
           />
         ) : isPlayStore ? (
           /* App móvil sin capturas: maqueta de teléfono abstracta */
@@ -128,7 +132,7 @@ const sizes = wide
                 data-srcset={s.srcset}
                 aria-pressed={i === 0 ? "true" : "false"}
                 aria-label={`Ver captura ${i + 1} de ${shots.length}`}
-                class="thumb press relative h-9 w-16 shrink-0 overflow-hidden rounded-lg"
+                class:list={["thumb press relative shrink-0 overflow-hidden rounded-lg", portrait ? "h-14 w-7" : "h-9 w-16"]}
               >
                 <img src={s.thumb} alt="" width="64" height="36" loading="lazy" decoding="async" class="size-full object-cover object-top" />
               </button>
@@ -253,6 +257,20 @@ const sizes = wide
     .wide-shot {
       padding: 2rem 2rem 4.5rem;
     }
+  }
+
+  /* Capturas verticales: teléfono completo centrado, con hueco abajo para las miniaturas. */
+  .portrait-shot {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 1rem 5rem;
+  }
+  .portrait-shot .main-image {
+    width: auto;
+    max-width: 100%;
+    border-radius: 1.25rem;
+    box-shadow: var(--shadow-float);
   }
 
   .main-image[data-swapping] {
