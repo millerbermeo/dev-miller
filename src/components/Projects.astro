@@ -6,8 +6,9 @@ import SectionHeading from "./ui/SectionHeading.astro";
 import Button from "./ui/Button.astro";
 import Icon from "./ui/Icon.astro";
 
-const featured = projects.filter((p) => p.featured);
-const rest = projects.filter((p) => !p.featured);
+const visible = projects.filter((p) => !p.hidden);
+const featured = visible.filter((p) => p.featured);
+const rest = visible.filter((p) => !p.featured);
 const [lead, ...others] = featured;
 ---
 

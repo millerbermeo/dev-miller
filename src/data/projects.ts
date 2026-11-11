@@ -6,6 +6,8 @@ export type Copilot = "Claude Code" | "OpenCode" | "OpenClaw" | "Codex";
 export interface Project {
   label: string;
   featured?: boolean;
+  /** Si es true el proyecto no se muestra en el portafolio. */
+  hidden?: boolean;
   title: string;
   problem: string;
   solution: string;
@@ -42,6 +44,7 @@ export const projects: Project[] = [
   {
     label: "SaaS · Delivery multi-tenant",
     featured: true,
+    hidden: true,
     title: "Plataforma SaaS de Domicilios con WhatsApp API + IA",
     problem:
       "Empresas de delivery gestionando pedidos manualmente, sin comunicación en tiempo real con domiciliarios ni seguimiento de ubicación.",
@@ -60,6 +63,7 @@ export const projects: Project[] = [
   {
     label: "Mobile · App de domicilios",
     featured: true,
+    hidden: true,
     title: "App Móvil de Domicilios — Android en producción",
     problem:
       "Clientes y domiciliarios sin una app nativa para pedir, recibir y seguir domicilios en tiempo real desde el teléfono.",
